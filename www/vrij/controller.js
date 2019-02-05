@@ -21,52 +21,31 @@ class VrijController
         else
         {
             this.m.storeAllTasks();
-            this.loadCurrentList();
+            this.loadList();
         }
     }
 
-    loadCurrentList()
+    loadList()
     {
-        console.log("Loading current list..");
-        switch(this.currentList)
-        {
-            case "offered":
-                this.renderOfferedTaskList()
-
-                break;
-            case "accepted":
-                this.renderAcceptedTaskList()
-                break;
-            default:
-        }
+        console.log("Loading list..");
+        this.renderTaskList()
     }
-    
+
     /**
      * Renders main page with tasks from current location
      */
-    renderOfferedTaskList()
+    renderTaskList()
     {
         this.v.showHeader("#header");
-        this.v.showFooterOffered("#footer");
+        this.v.showFooter("#footer");
 
         $("#content").html("");
-        $("#content").append("<div id='tasklist'>");
+        $("#content").append("<div id='tasklist-accepteerde'>");
+        $("#content").append("<div id='tasklist-aangeboden'>");
 
-        this.v.showTasklist('#tasklist', 'Aangeboden Taken', this.offeredTasks);
-    }
-    
-    /**
-     * Renders main page with tasks from current location
-     */
-    renderAcceptedTaskList()
-    {
-        this.v.showHeader("#header");
-        this.v.showFooterAccepted("#footer");
-
-        $("#content").html("");
-        $("#content").append("<div id='tasklist'>");
-
-        this.v.showTasklist('#tasklist', 'Geaccepteerde Taken', this.acceptedTasks);
+        this.v.showTasklist('#tasklist-accepteerde', 'Geaccepteerde taken', this.acceptedTasks, true);
+        this.v.showTasklist('#tasklist-aangeboden',  'Aangeboden Taken',    this.offeredTasks, false);
+        this.dropdownSlide('#tasklist-aangeboden');
     }
 
     postAcceptedTask(id, callback)
@@ -115,4 +94,9 @@ class VrijController
         this.renderAcceptedTaskList();
     }
 
+    dropdownSlide(div)
+    {
+        this.v.dropdownSlideToggle(div); 
+    } 
+    
 }

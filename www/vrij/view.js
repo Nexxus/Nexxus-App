@@ -65,6 +65,90 @@ class VrijView {
           i +
           "'>";
 
+    showHeader(div)
+    {
+        $(div).html("<div data-role='header' data-position='fixed' role='banner' class='ui-header ui-bar-inherit ui-header-fixed slidedown'>"
+              + "<h1 class='ui-title' role='heading' aria-level='1'>Nexxus</h1>"
+              + "</div>"
+        );
+    }
+    
+    showFooter(div)
+    {
+         $(div).html("<a id='btn-submit' onClick='loginc.handleLogout()' class='ui-btn-half ui-rood ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Uitloggen</a>");
+    }
+
+    showTasklist(div, title, tasks, header)
+    {
+        var html = "";
+
+        /* body */
+        html  += "<div class='ui-content' data-role='content' data-theme='a'>"
+               + "<h3 style='margin:0;margin-left:2vw; margin-top:1vh;'>" + title + "</h3>";
+
+        /* table */
+        html += "<div data-role='content' data-theme='a'>"
+              + "<table id='table-offered-tasks' data-role='table' data-mode='reflow' class='ui-responsive ui-table ui-table-reflow'>"
+              + "<tbody id='title'>";
+
+        if(header) 
+        {
+           html += "<tr>"
+                 +   "<td><b>Datum</b></td>"
+                 +   "<td><b>Hoeveelheid</b></td>"
+                 +   "<td><b>Stad</b></td>"
+                 + "</tr>"
+        }
+
+        html += "</tbody>";
+
+        // count rows for dropdown
+        var row_c = 0;
+
+        var div_id = div.substr(1);
+
+        /* table rows */
+        if(Array.isArray(tasks) && tasks.length > 0)
+        {
+            html += "<tr style='background-color:#ddd'><td onClick=\"c.dropdownSlide('"+div+"')\" id='"+div_id+"-dropdown' colspan='3'></td></tr>";
+            html += "<tbody id='"+div_id+"-rows' style='display: none;'>";
+
+            for(var i=0; i < tasks.length; i++) 
+            {
+                row_c++;
+                // count products
+                var relations = tasks[i]['product_relations'];
+                var totalproducts = 0;
+
+                for(var pr=0; pr < relations.length; pr++)
+                {
+                    totalproducts += relations[pr]['quantity'];
+                }
+
+                var location = tasks[i]['location']['name'];
+
+                html += "<tr class='"+div_id+"-bing' onClick='c.renderPopupTask(" + tasks[i]['id'] + ")'"
+                            + "data-priority='1' id='title"+i+"'>";
+
+                html += "<td>" + this.parseTSDate(tasks[i]['order_date']) + "</td>";
+
+                html += "<td>" + totalproducts + (totalproducts==1 ? " product" : " producten") + "</td>";
+
+                html +=   "<td>" + location + "</td>"; 
+
+                html +=  "</tr>";
+            }	
+        } else { html += "<tr><td colspan=3>Geen taken gevonden</td></tr>"; }
+        html += "</tbody></table>";
+
+        $(div).html(html);
+
+        // fill dropdown header
+        var ddtxt = "<span id='"+div_id+"-caret'>▼</span> " + row_c + (row_c==1 ? " ophaaltaak" : " ophaaltaken") + " in huidige pool";
+        $(div+"-dropdown").html(ddtxt);
+
+    }
+
         html += "<td>" + this.parseTSDate(tasks[i]["order_date"]) + "</td>";
 
         if (totalproducts == 1) {
@@ -164,6 +248,20 @@ class VrijView {
         "<a onClick='c.sendToFinalForm(" +
         task["id"] +
         ")' id='btn-submit' class='ui-btn ui-options ui-green'>Afronden <img src='include/css/images/icons-png/check-white.png'></a>";
+
+    dropdownSlideToggle(div)
+    {
+        var rows = div+"-rows"; var caret = div+"-caret";
+
+        (($(caret).html()=="▼") ? $(caret).html("▲") : $(caret).html("▼"));
+
+        $(rows).slideToggle();
+    }
+
+    parseTSDate(ts)
+    {
+        return ts.substring(0,ts.indexOf('T'));
+
     }
     choice += "</div>";
 
