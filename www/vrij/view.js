@@ -13,41 +13,49 @@ class VrijView
         );
     }
     
-    showFooterOffered(div)
+    showFooter(div)
     {
-         $(div).html("<a id='btn-submit' onClick='loginc.handleLogout()' class='ui-btn-half ui-rood ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Uitloggen</a>"
-            + '<a onClick="c.renderAcceptedTaskList()" name="accepted-tasks"; class="ui-btn-half ui-green ui-link ui-btn ui-shadow ui-corner-all" data-role="button" role="button"><img src="include/css/images/icons-png/bullets-white.png"> Geaccepteerde Taken</a>');
+         $(div).html("<a id='btn-submit' onClick='loginc.handleLogout()' class='ui-btn-half ui-rood ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Uitloggen</a>");
     }
 
-    showFooterAccepted(div)
-    {
-         $(div).html("<a id='btn-submit' onClick='loginc.handleLogout()' class='ui-btn-half ui-rood ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Uitloggen</a>"
-            + "<a onClick='c.renderOfferedTaskList()' name='accepted-tasks'; class='ui-btn-half ui-green ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'><img src='include/css/images/icons-png/bullets-white.png'> Aangeboden Taken</a>");
-    }
-
-    showTasklist(div, title, tasks)
+    showTasklist(div, title, tasks, header)
     {
         var html = "";
 
         /* body */
-        html  += "<div class='ui-resize ui-content' data-role='content' data-theme='a'>"
-                + "<h3 style='margin:0;margin-left:2vw; margin-top:1vh;'>" + title + "</h3>";
+        html  += "<div class='ui-content' data-role='content' data-theme='a'>"
+               + "<h3 style='margin:0;margin-left:2vw; margin-top:1vh;'>" + title + "</h3>";
 
         /* table */
         html += "<div data-role='content' data-theme='a'>"
-              + "<table id='table-offered-tasks' data-role='table' class='ui-responsive ui-table ui-table-reflow'>"
-              + "<tbody id='title'>"
-              + "<tr>"
-              +   "<td><b>Datum</b></td>"
-              +   "<td><b>Hoeveelheid</b></td>"
-              +   "<td><b>Stad</b></td>"
-              + "</tr>"
+              + "<table id='table-offered-tasks' data-role='table' data-mode='reflow' class='ui-responsive ui-table ui-table-reflow'>"
+              + "<tbody id='title'>";
+
+        if(header) 
+        {
+           html += "<tr>"
+                 +   "<td><b>Datum</b></td>"
+                 +   "<td><b>Hoeveelheid</b></td>"
+                 +   "<td><b>Stad</b></td>"
+                 + "</tr>"
+        }
+
+        html += "</tbody>";
+
+        // count rows for dropdown
+        var row_c = 0;
+
+        var div_id = div.substr(1);
 
         /* table rows */
         if(Array.isArray(tasks) && tasks.length > 0)
         {
+            html += "<tr style='background-color:#ddd'><td onClick=\"c.dropdownSlide('"+div+"')\" id='"+div_id+"-dropdown' colspan='3'></td></tr>";
+            html += "<tbody id='"+div_id+"-rows' style='display: none;'>";
+
             for(var i=0; i < tasks.length; i++) 
             {
+                row_c++;
                 // count products
                 var relations = tasks[i]['product_relations'];
                 var totalproducts = 0;
@@ -59,26 +67,26 @@ class VrijView
 
                 var location = tasks[i]['location']['name'];
 
-                html += "<tr onClick='c.renderPopupTask(" + tasks[i]['id'] + ")'"
+                html += "<tr class='"+div_id+"-bing' onClick='c.renderPopupTask(" + tasks[i]['id'] + ")'"
                             + "data-priority='1' id='title"+i+"'>";
 
                 html += "<td>" + this.parseTSDate(tasks[i]['order_date']) + "</td>";
 
-                if(totalproducts == 1) 
-                {
-                    html += "<td>" + totalproducts + " product</td>";
-                } else {
-                    html += "<td>" + totalproducts + " producten</td>";
-                }
+                html += "<td>" + totalproducts + (totalproducts==1 ? " product" : " producten") + "</td>";
 
                 html +=   "<td>" + location + "</td>"; 
 
                 html +=  "</tr>";
             }	
         } else { html += "<tr><td colspan=3>Geen taken gevonden</td></tr>"; }
-        html += "</tbody>";
+        html += "</tbody></table>";
 
         $(div).html(html);
+
+        // fill dropdown header
+        var ddtxt = "<span id='"+div_id+"-caret'>▼</span> " + row_c + (row_c==1 ? " ophaaltaak" : " ophaaltaken") + " in huidige pool";
+        $(div+"-dropdown").html(ddtxt);
+
     }
 
     showPopupTask(div, task)
@@ -232,6 +240,15 @@ class VrijView
         + "</div>"
 
         $("#footer").after(popup);
+    }
+
+    dropdownSlideToggle(div)
+    {
+        var rows = div+"-rows"; var caret = div+"-caret";
+
+        (($(caret).html()=="▼") ? $(caret).html("▲") : $(caret).html("▼"));
+
+        $(rows).slideToggle();
     }
 
     parseTSDate(ts)
