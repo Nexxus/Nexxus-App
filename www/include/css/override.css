@@ -72,6 +72,7 @@
 .ui-content {
   padding-top: 0;
   padding-left: 1em;
+  overflow: hidden;
 }
 .ui-table tr:nth-child(even) {
   background: #e6e6e6;
@@ -199,10 +200,13 @@ div.ui-controlgroup-label {
   .ui-center {
     margin-left: 15vw;
   }
-
-#content {
 }
 
 .visibility {
+}
 
+.pooltitle {
+  width: auto !important;
+  max-width: 70vw !important;
+  min-width: auto !important;
 }
