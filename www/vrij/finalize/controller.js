@@ -4,6 +4,7 @@ class FinalizeController {
     this.v = new FinalizeView();
 
     this.id = this.m.getFinalItem();
+    this.showTasks();
   }
 
   renderFinalForm() {
@@ -31,11 +32,27 @@ class FinalizeController {
       this.goBack();
     }
   }
+  showTasks() {
+    this.v.showCurrentTask(1, this.m.getTasks().length - 1, this.m.getTasks());
+    this.v.showWheel(1, this.m.getTasks());
+  }
   renderAccept() {
-    this.v.showWheel;
+    this.m.setNextTask();
+    this.v.showCurrentTask(
+      this.m.getCurrentTask(),
+      this.m.getTasks().length - 1,
+      this.m.getTasks()
+    );
+    this.v.showWheel(this.m.getCurrentTask(), this.m.getTasks());
   }
   renderCancel() {
-    this.v.showWheel;
+    this.m.setNextTask();
+    this.v.showCurrentTask(
+      this.m.getCurrentTask(),
+      this.m.getTasks().length - 1,
+      this.m.getTasks()
+    );
+    this.v.showWheel(this.m.getCurrentTask(), this.m.getTasks());
   }
   goBack() {
     window.open("vrij.html", "_self");

@@ -81,6 +81,7 @@
 }
 .ui-center {
   margin-left: 3vw;
+  position: absolute;
 }
 .ui-popup-screen {
   background-color: black;
@@ -138,4 +139,33 @@ div.ui-controlgroup-label {
 #ui-nummer {
   max-width: 30px;
   min-width: 30px;
+}
+
+#wheel {
+  margin: 20vw;
+  margin-top: 20vw;
+}
+.vorige {
+  color: #8c8c8c;
+  font-size: 12px;
+  text-align: center;
+  width: 150px;
+  margin-left: 25px;
+}
+.huidige {
+  font-size: 18px;
+  font-weight: bold;
+  border-left: solid;
+  border-right: solid;
+  border-width: 1px;
+  text-align: center;
+  width: 60vw;
+}
+.hierna {
+  color: #8c8c8c;
+  font-size: 12px;
+  text-align: center;
+  border-color: #8c8c8c;
+  width: 150px;
+  margin-left: 25px;
 }
