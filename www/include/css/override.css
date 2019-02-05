@@ -36,6 +36,7 @@
   font-size: 20px;
   padding: 0;
   background-color: #006e2e;
+  height: 50px;
 }
 .ui-title {
   margin-bottom: 0%;
@@ -78,10 +79,6 @@
 .ui-radio-pop {
   color: black !important;
   margin-top: 50vh;
-}
-.ui-center {
-  margin-left: 3vw;
-  position: absolute;
 }
 .ui-popup-screen {
   background-color: black;
@@ -142,18 +139,20 @@ div.ui-controlgroup-label {
 }
 
 #wheel {
-  margin: 20vw;
-  margin-top: 20vw;
+  margin-left: 20vw;
+  margin-right: 20vw;
+  width: fit-content;
 }
-.vorige {
+.previous {
   color: #8c8c8c;
-  font-size: 12px;
+  font-size: 3vw;
+
   text-align: center;
-  width: 150px;
+  width: 45vw;
   margin-left: 25px;
 }
-.huidige {
-  font-size: 18px;
+.current {
+  font-size: 5vw;
   font-weight: bold;
   border-left: solid;
   border-right: solid;
@@ -161,11 +160,43 @@ div.ui-controlgroup-label {
   text-align: center;
   width: 60vw;
 }
-.hierna {
+.next {
   color: #8c8c8c;
-  font-size: 12px;
+  font-size: 3vw;
   text-align: center;
   border-color: #8c8c8c;
-  width: 150px;
+  width: 45vw;
   margin-left: 25px;
+}
+.details {
+  margin: 0;
+  margin-left: 2vw;
+  margin-top: 1vh;
+}
+#info {
+  height: inherit;
+}
+@media screen and (min-width: 1200px) {
+  .previous {
+    font-size: 36px;
+    width: 55vw;
+  }
+  .current {
+    font-size: 50px;
+    width: 55vw;
+  }
+  .next {
+    font-size: 36px;
+    width: 55vw;
+  }
+  #info {
+    width: 30vw;
+    margin-left: 10vw;
+  }
+  .details {
+    margin-left: 10vw;
+  }
+  .ui-center {
+    margin-left: 15vw;
+  }
 }

@@ -5,8 +5,8 @@ class FinalizeModel {
 
     this.c = controller;
 
-    this.taken = [];
-    this.huidige = 1;
+    this.tasks = [];
+    this.current = 1;
     this.createDummy();
   }
 
@@ -39,51 +39,52 @@ class FinalizeModel {
     });
   }
 
-  //dummy content om door te lopen in het wiel
+  //dummy content
   createDummy() {
     for (var x = 1; x <= 3; x++) {
-      this.taken[x] = [x];
+      this.tasks[x] = [x];
       for (var y = 0; y < 3; y++) {
-        this.taken[x][y] = 0;
+        this.tasks[x][y] = 0;
       }
     }
 
-    this.taken[1][1] = "breedstraat 128";
-    this.taken[1][2] = "2543";
-    this.taken[1][3] = "29-2-2019";
-    this.taken[1][4] = "13";
-    this.taken[1][5] = "12:00";
-    this.taken[1][6] = "jan";
-    this.taken[1][7] = "06876543";
+    this.tasks[1][1] = "Breedstraat 128";
+    this.tasks[1][2] = "2543";
+    this.tasks[1][3] = "29-2-2019";
+    this.tasks[1][4] = "13";
+    this.tasks[1][5] = "12:00";
+    this.tasks[1][6] = "jan";
+    this.tasks[1][7] = "06876543";
 
-    this.taken[2][1] = "sirtemastraat 177";
-    this.taken[2][2] = "2544";
-    this.taken[2][3] = "28-3-2019";
-    this.taken[2][4] = "15";
-    this.taken[2][5] = "13:00";
-    this.taken[2][6] = "jan";
-    this.taken[2][7] = "06876542";
+    this.tasks[2][1] = "Sirtemastraat 177";
+    this.tasks[2][2] = "2544";
+    this.tasks[2][3] = "28-3-2019";
+    this.tasks[2][4] = "15";
+    this.tasks[2][5] = "13:00";
+    this.tasks[2][6] = "jan";
+    this.tasks[2][7] = "06876542";
 
-    this.taken[3][1] = "zwaardvegersgaarde";
-    this.taken[3][2] = "2445";
-    this.taken[3][3] = "27-4-2019";
-    this.taken[3][4] = "17";
-    this.taken[3][5] = "14:00";
-    this.taken[3][6] = "jan";
-    this.taken[3][7] = "06876541";
+    this.tasks[3][1] = "Zwaardvegersgaarde";
+    this.tasks[3][2] = "2445";
+    this.tasks[3][3] = "27-4-2019";
+    this.tasks[3][4] = "17";
+    this.tasks[3][5] = "14:00";
+    this.tasks[3][6] = "jan";
+    this.tasks[3][7] = "06876541";
   }
 
+  //returns the number of the current task
   getCurrentTask() {
-    return this.huidige;
+    return this.current;
   }
-
+  //returns an array with the details about the current task
   getTasks() {
-    return this.taken;
+    return this.tasks;
   }
-
+  //changes the current task to the next
   setNextTask() {
-    if (this.huidige < this.taken.length - 1) {
-      this.huidige++;
+    if (this.current < this.tasks.length - 1) {
+      this.current++;
     } else {
       window.open("vrij.html", "_self");
     }

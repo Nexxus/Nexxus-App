@@ -1,62 +1,58 @@
 class FinalizeView {
   constructor(taken) {}
   //ryan zijn code
-  showCurrentTask(huidige, laatste, taak) {
+  showCurrentTask(current, last, task) {
     //title
-    var currentTask =
-      "<h3 style=margin:0;margin-left:2vw; margin-top:1vh;> Taak " +
-      huidige +
-      "/" +
-      laatste +
-      " </h3>";
+    var currentTask = "<h3 class='details' > Details: </h3>";
 
-    //Details huidige taak
+    //Details current task
     currentTask +=
       "<table id='info' data-role='table' class='ui-responsive table-stroke ui-table ui-table-reflow'>" +
       "<tbody >" +
       "<tr>" +
       "<td id='stad' ><b > Postcode: </b></td><td class='ui-width'>" +
-      taak[huidige][2] +
+      task[current][2] +
       "</td>" +
       "</tr>" +
       "<tr>" +
       " <td id='straat'><b class='ui-table-cell-label' > Straat: </b></td>" +
       "<td class='ui-width'>" +
-      taak[huidige][1] +
+      task[current][1] +
       "</td>" +
       "</tr>" +
       "<tr> " +
       "<td id='datum'><b class='ui-table-cell-label' > Datum: </b></td>" +
       "<td class='ui-width'>" +
-      taak[huidige][3] +
+      task[current][3] +
       "</td>" +
       "</tr>" +
       "<tr>" +
       "<td id='wat'><b class='ui-table-cell-label' > Hoeveelheid: </b></td>" +
       "<td class='ui-width'>" +
-      taak[huidige][4] +
+      task[current][4] +
       "</td>" +
       "</tr>" +
       "<tr><td id='tijd'><b class='ui-table-cell-label'> Tijd: </b></td>" +
       "<td class='ui-width'>" +
-      taak[huidige][5] +
+      task[current][5] +
       "</td>" +
       "</tr>" +
       "<tr>" +
       "<td id='contact'><b class='ui-table-cell-label' > Contact: </b></td>" +
       "<td class='ui-width'>" +
-      taak[huidige][6] +
+      task[current][6] +
       "</td>" +
       "</tr>" +
       "<tr>" +
       "<td id='tel'><b class='ui-table-cell-label' > Telefoon: </b></td>" +
       "<td class='ui-width'>" +
-      taak[huidige][7] +
+      task[current][7] +
       "</td>" +
       "</tr>" +
       "</tbody>" +
       "</table> ";
-    //opties taak annuleren of afronden
+
+    //load options
     currentTask +=
       "<div class='ui-center'>" +
       "<a onClick='c.renderAccept()' data-rel='popup' data-transition='pop' data-position-to='window' id='btn-submit' class='ui-btn ui-options ui-rood'>Annuleren  <img src='include/css/images/icons-png/delete-white.png'></a>" +
@@ -65,41 +61,43 @@ class FinalizeView {
     $("#content").html(currentTask);
   }
 
-  showWheel(huidige, taken) {
+  showWheel(current, tasks) {
     $("#wheel").remove();
-    $(".ui-center").after("<div id='wheel'></div>");
+    $("#header").after("<div id='wheel'></div>");
 
-    if (huidige > 1) {
+    //shows finished tasks
+    if (current > 1) {
       $("#wheel").append(
-        "<p class='vorige'>" +
-          (huidige - 1) +
+        "<p class='previous'>" +
+          (current - 1) +
           ". " +
-          taken[huidige - 1][1] +
+          tasks[current - 1][1] +
           "</p>"
       );
     } else {
+      $("#wheel").append("<p class='previous'>0. Geen taken voltooid</p>");
+    }
+    //loads current task
+    if (current > 1 || current < tasks.length) {
       $("#wheel").append(
-        "<p class='vorige'>0. Je hebt nog geen taken voltooit</p>"
+        "<p class='current'>" + current + ". " + tasks[current][1] + "</p>"
       );
     }
 
-    if (huidige > 1 || huidige < taken.length) {
+    //shows next task
+    if (current < tasks.length - 1) {
       $("#wheel").append(
-        "<p class='huidige'>" + huidige + ". " + taken[huidige][1] + "</p>"
-      );
-    }
-    if (huidige < taken.length - 1) {
-      $("#wheel").append(
-        "<p class='hierna'>" +
-          (huidige + 1) +
+        "<p class='next'>" +
+          (current + 1) +
           ". " +
-          taken[huidige + 1][1] +
+          tasks[current + 1][1] +
           "</p>"
       );
     } else {
-      $("#wheel").append("<p class='hierna'> Je hebt al je taken voltooid</p>");
+      $("#wheel").append("<p class='next'> Je hebt al je taken voltooid</p>");
     }
   }
+
   showQuantityForm() {
     $("#quantity-form").show();
     $("#photo-form").hide();

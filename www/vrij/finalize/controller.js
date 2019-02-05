@@ -36,6 +36,7 @@ class FinalizeController {
     this.v.showCurrentTask(1, this.m.getTasks().length - 1, this.m.getTasks());
     this.v.showWheel(1, this.m.getTasks());
   }
+
   renderAccept() {
     this.m.setNextTask();
     this.v.showCurrentTask(
