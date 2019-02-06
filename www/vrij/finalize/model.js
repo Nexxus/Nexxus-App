@@ -1,5 +1,6 @@
 class FinalizeModel {
-  constructor(controller) {
+  constructor(controller) 
+  {
     this.url = userConfig.api;
     this.token = sessionStorage.getItem("token");
 
@@ -10,11 +11,13 @@ class FinalizeModel {
     this.createDummy();
   }
 
-  getFinalItem() {
+  getFinalItem() 
+  {
     return sessionStorage.getItem("finalitem");
   }
 
-  setOrderStatusDone(id) {
+  setOrderStatusDone(id) 
+  {
     $.ajax({
       async: true,
       crossDomain: true,
@@ -40,7 +43,8 @@ class FinalizeModel {
   }
 
   //dummy content
-  createDummy() {
+  createDummy() 
+  {
     for (var x = 1; x <= 3; x++) {
       this.tasks[x] = [x];
       for (var y = 0; y < 3; y++) {
@@ -74,21 +78,25 @@ class FinalizeModel {
   }
 
   //returns the number of the current task
-  getCurrentTask() {
+  getCurrentTask() 
+  {
     return this.current;
   }
   //returns an array with the details about the current task
-  getTasks() {
+  getTasks() 
+  {
     return this.tasks;
   }
   //changes the current task to the next
-  setNextTask() {
+  setNextTask() 
+  {
     if (this.current < this.tasks.length - 1) {
       this.current++;
     } else {
-      window.open("vrij.html", "_self");
+       window.open("vrij.html", "_self");
     }
   }
+
   /*submitFinalizeForm(status)
     {
 

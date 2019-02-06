@@ -1,4 +1,5 @@
-class VrijController {
+class VrijController 
+{
   constructor(loginc) {
     this.m = new VrijModel(this, loginc);
     this.v = new VrijView();
@@ -9,7 +10,8 @@ class VrijController {
     this.currentList = "offered";
   }
 
-  reloadTasklist(callback) {
+  reloadTasklist(callback) 
+  {
     // request tasks
     if (!callback) {
       this.m.loadTasks(false, 0);
@@ -19,7 +21,8 @@ class VrijController {
     }
   }
 
-  loadList() {
+  loadList() 
+  {
     console.log("Loading list..");
     this.renderTaskList();
   }
@@ -27,7 +30,8 @@ class VrijController {
   /**
    * Renders main page with tasks from current location
    */
-  renderTaskList() {
+  renderTaskList() 
+  {
     this.v.showHeader("#header");
     this.v.showFooter("#footer");
 
@@ -50,7 +54,8 @@ class VrijController {
     this.dropdownSlide("#tasklist-aangeboden");
   }
 
-  postAcceptedTask(id, callback) {
+  postAcceptedTask(id, callback) 
+  {
     if (!callback) {
       this.m.sendAcceptTask(id);
     } else {
@@ -59,38 +64,46 @@ class VrijController {
     }
   }
 
-  renderPopupTask(id) {
+  renderPopupTask(id) 
+  {
     var task = this.m.getTaskInfo(id);
 
     this.v.showPopupTask("#order-current", task);
   }
 
-  sendToFinalForm(id) {
+  sendToFinalForm(id) 
+  {
     sessionStorage.setItem("finalitem", id);
     window.open("vrij_finalize.html", "_self");
   }
 
-  closingPopup() {
+  closingPopup() 
+  {
     this.v.closePopup();
   }
 
-  closeInfoPopup() {
+  closeInfoPopup() 
+  {
     this.v.closeInfoPopup();
   }
 
-  renderRefuse() {
+  renderRefuse() 
+  {
     this.v.renderRefuse();
   }
 
-  renderCancel() {
+  renderCancel() 
+  {
     this.v.renderCancel();
   }
 
-  renderAccept() {
+  renderAccept() 
+  {
     this.renderAcceptedTaskList();
   }
 
-  dropdownSlide(div) {
+  dropdownSlide(div) 
+  {
     this.v.dropdownSlideToggle(div);
   }
 }

@@ -1,7 +1,8 @@
 class FinalizeView {
   constructor(taken) {}
-  //ryan zijn code
-  showCurrentTask(current, last, task) {
+
+  showCurrentTask(current, last, task) 
+  {
     //title
     var currentTask = "<h3 class='details' > Details: </h3>";
 
@@ -61,7 +62,8 @@ class FinalizeView {
     $("#content").html(currentTask);
   }
 
-  showWheel(current, tasks) {
+  showWheel(current, tasks)
+  {
     $("#wheel").remove();
     $("#header").after("<div id='wheel'></div>");
 
@@ -98,12 +100,14 @@ class FinalizeView {
     }
   }
 
-  showQuantityForm() {
+  showQuantityForm() 
+  {
     $("#quantity-form").show();
     $("#photo-form").hide();
   }
 
-  showPhotoForm() {
+  showPhotoForm() 
+  {
     $("#quantity-form").hide();
 
     // add images according to amount
@@ -150,7 +154,8 @@ class FinalizeView {
     $("#photo-form").fadeIn();
   }
 
-  changePhotoIconToSolved(i) {
+  changePhotoIconToSolved(i) 
+  {
     // check if file is an image
     var allowed_types = ["image/jpg", "image/jpeg", "image/png", "image/bmp"];
 

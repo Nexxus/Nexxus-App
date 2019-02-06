@@ -7,7 +7,8 @@ class FinalizeController {
     this.showTasks();
   }
 
-  renderFinalForm() {
+  renderFinalForm() 
+  {
     indexc.v.showHeader("#header");
 
     this.v.showQuantityForm();
@@ -15,11 +16,13 @@ class FinalizeController {
     var id = this.m.getFinalItem();
   }
 
-  renderPhotoForm() {
+  renderPhotoForm() 
+  {
     this.v.showPhotoForm();
   }
 
-  submitForm(callback) {
+  submitForm(callback) 
+  {
     // fade out form, show loading
 
     // send photos to handle
@@ -32,12 +35,14 @@ class FinalizeController {
       this.goBack();
     }
   }
-  showTasks() {
+  showTasks() 
+  {
     this.v.showCurrentTask(1, this.m.getTasks().length - 1, this.m.getTasks());
     this.v.showWheel(1, this.m.getTasks());
   }
 
-  renderAccept() {
+  renderAccept() 
+  {
     this.m.setNextTask();
     this.v.showCurrentTask(
       this.m.getCurrentTask(),
@@ -46,7 +51,8 @@ class FinalizeController {
     );
     this.v.showWheel(this.m.getCurrentTask(), this.m.getTasks());
   }
-  renderCancel() {
+  renderCancel() 
+  {
     this.m.setNextTask();
     this.v.showCurrentTask(
       this.m.getCurrentTask(),
@@ -55,7 +61,8 @@ class FinalizeController {
     );
     this.v.showWheel(this.m.getCurrentTask(), this.m.getTasks());
   }
-  goBack() {
+  goBack() 
+  {
     window.open("vrij.html", "_self");
   }
 }

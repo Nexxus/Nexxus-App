@@ -139,6 +139,14 @@ div.ui-controlgroup-label {
   min-width: 30px;
 }
 
+.ui-red {
+  background-color: red;
+}
+
+.ui-green {
+  background-color: green;
+}
+
 #wheel {
   margin-left: 20vw;
   margin-right: 20vw;
