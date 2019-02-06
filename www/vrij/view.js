@@ -129,8 +129,9 @@ class VrijView {
     }
 
     html +=
-      "<div class='visibility ui-content ui-body-a' id='data' data-role='content' data-theme='a' role='main'>" +
-      "<a onclick='c.closingPopup()' style='position:relative; float: right;margin:0'  data-role='button'  class='ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right ui-rood' ></a>" +
+      "<div class='ui-popup-container pop in ui-popup-active' id='info-popup' style='max-width: 330px; top: 171px; left: 29px'>" +
+      "<div class='ui-popup ui-body-inherit ui-overlay-shadow ui-corner-all' data-role='popup' id='infop' data-dismissible='false' style='max-width:400px; min-width: 300px'>" +
+      "<a onclick='c.closeInfoPopup()' style='position:relative; float: right;margin:0'  data-role='button'  class='ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right ui-rood' ></a>" +
       "<h3 style='margin:0;margin-left:2vw; margin-top:1vh;'> Info</h3>" +
       " <table id='info' data-role='table' class='ui-responsive table-stroke ui-table ui-table-reflow'>" +
       "<tbody >" +
@@ -238,6 +239,9 @@ class VrijView {
       "</div>" +
       "</div>";
     $("#footer").after(popup);
+
+    $("#infop").hide();
+    $("#info-popup").hide();
   }
 
   closePopup() {
@@ -245,8 +249,13 @@ class VrijView {
     $(".visibility").remove();
     $("#reden-screen").remove();
     $("#reden-popup").remove();
+    $("#infop").show();
+    $("#info-popup").show();
   }
-
+  closeInfoPopup() {
+    $("#infp").remove();
+    $("#info-popup").remove();
+  }
   renderCancel() {
     var popup = "";
 

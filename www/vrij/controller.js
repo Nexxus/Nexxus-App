@@ -1,102 +1,96 @@
-class VrijController
-{
-    constructor(loginc) 
-    {
-        this.m = new VrijModel(this, loginc);
-        this.v = new VrijView();
+class VrijController {
+  constructor(loginc) {
+    this.m = new VrijModel(this, loginc);
+    this.v = new VrijView();
 
-        this.offeredTasks = [];
-        this.acceptedTasks = [];
+    this.offeredTasks = [];
+    this.acceptedTasks = [];
 
-        this.currentList = "offered";
+    this.currentList = "offered";
+  }
+
+  reloadTasklist(callback) {
+    // request tasks
+    if (!callback) {
+      this.m.loadTasks(false, 0);
+    } else {
+      this.m.storeAllTasks();
+      this.loadList();
     }
+  }
 
-    reloadTasklist(callback)
-    {
-        // request tasks
-        if(!callback) 
-        {
-            this.m.loadTasks(false, 0);
-        }
-        else
-        {
-            this.m.storeAllTasks();
-            this.loadList();
-        }
+  loadList() {
+    console.log("Loading list..");
+    this.renderTaskList();
+  }
+
+  /**
+   * Renders main page with tasks from current location
+   */
+  renderTaskList() {
+    this.v.showHeader("#header");
+    this.v.showFooter("#footer");
+
+    $("#content").html("");
+    $("#content").append("<div id='tasklist-accepteerde'>");
+    $("#content").append("<div id='tasklist-aangeboden'>");
+
+    this.v.showTasklist(
+      "#tasklist-accepteerde",
+      "Geaccepteerde taken",
+      this.acceptedTasks,
+      true
+    );
+    this.v.showTasklist(
+      "#tasklist-aangeboden",
+      "Aangeboden Taken",
+      this.offeredTasks,
+      false
+    );
+    this.dropdownSlide("#tasklist-aangeboden");
+  }
+
+  postAcceptedTask(id, callback) {
+    if (!callback) {
+      this.m.sendAcceptTask(id);
+    } else {
+      this.currentList = "accepted";
+      this.reloadTasklist(false);
     }
+  }
 
-    loadList()
-    {
-        console.log("Loading list..");
-        this.renderTaskList()
-    }
+  renderPopupTask(id) {
+    var task = this.m.getTaskInfo(id);
 
-    /**
-     * Renders main page with tasks from current location
-     */
-    renderTaskList()
-    {
-        this.v.showHeader("#header");
-        this.v.showFooter("#footer");
+    this.v.showPopupTask("#order-current", task);
+  }
 
-        $("#content").html("");
-        $("#content").append("<div id='tasklist-accepteerde'>");
-        $("#content").append("<div id='tasklist-aangeboden'>");
+  sendToFinalForm(id) {
+    sessionStorage.setItem("finalitem", id);
+    window.open("vrij_finalize.html", "_self");
+  }
 
-        this.v.showTasklist('#tasklist-accepteerde', 'Geaccepteerde taken', this.acceptedTasks, true);
-        this.v.showTasklist('#tasklist-aangeboden',  'Aangeboden Taken',    this.offeredTasks, false);
-        this.dropdownSlide('#tasklist-aangeboden');
-    }
+  closingPopup() {
+    this.v.closePopup();
+  }
 
-    postAcceptedTask(id, callback)
-    {
-        if(!callback)
-        {
-            this.m.sendAcceptTask(id);
-        } else 
-        {
-            this.currentList = "accepted";
-            this.reloadTasklist(false);
-        }
+  closeInfoPopup() {
+    this.v.closeInfoPopup();
+  }
 
-    }
+  renderRefuse() {
+    this.v.renderRefuse();
+  }
 
-    renderPopupTask(id)
-    {
-        var task = this.m.getTaskInfo(id);
+  renderCancel() {
+    this.v.renderCancel();
+  }
 
-        this.v.showPopupTask("#order-current", task);
-    }
+  renderAccept() {
+    this.renderAcceptedTaskList();
+  }
 
-    sendToFinalForm(id)
-    {
-        sessionStorage.setItem("finalitem", id);
-        window.open('vrij_finalize.html', '_self');
-    }
-  
-    closingPopup() 
-    {
-        this.v.closePopup();
-    }
-
-    renderRefuse()
-    {
-        this.v.renderRefuse()
-    }
-
-    renderCancel()
-    {
-        this.v.renderCancel();
-    }
-
-    renderAccept()
-    {
-        this.renderAcceptedTaskList();
-    }
-
-    dropdownSlide(div)
-    {
-        this.v.dropdownSlideToggle(div); 
-    } 
-    
+  dropdownSlide(div) {
+    this.v.dropdownSlideToggle(div);
+  }
 }
