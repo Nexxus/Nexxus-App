@@ -48,11 +48,54 @@ class VrijView
         var row_c = 0;
 
         /* table rows */
-        if(Array.isArray(tasks) && tasks.length > 0)
-        {
             html += "<tr style='background-color:#ddd'><td class='pooltitle' onClick=\"c.dropdownSlide('"+div+"')\" id='"+div_id+"-dropdown'></td></tr>";
             html += "<tbody id='"+div_id+"-rows' style='display: none;'>";
+        if(Array.isArray(tasks) && tasks.length > 0)
+        {
+            html += "<tr><td colspan=3>Geen taken gevonden</td></tr>"; 
+        }
 
+        html += "</tbody></table>";
+
+        // insert rows into table
+        this.refreshTasklist(div, tasks);
+
+
+        $(div).html(html);
+
+        // fill dropdown header
+        var ddtxt = "<span id='"+div_id+"-caret'>▼</span>" 
+                        + "<strong><span id='"+div_id+"-amount'>" 
+                        + row_c + (row_c==1 ? " ophaaltaak" : " ophaaltaken") + "</span>"
+                        + " in huidige pool" + "</strong>";
+        $(div+"-dropdown").html(ddtxt);
+
+        // unique elements 
+        switch(div)
+        {
+            case "#tasklist-accepteerde":
+                $(div+"-spec").html("<a id='btn-submit' onClick='c.sendToFinalForm(0)' class='ui-btn-half ui-green ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Start Ophaal</a>");
+                break;
+            case "#tasklist-aangeboden":
+                $(div+"-spec").html("<a id='btn-submit' onClick='c.renderAcceptBulkPopup()' class='ui-btn-half ui-blue ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Accepteer Taken</a>");
+                break;
+
+            default:
+        }
+
+
+    }
+
+    refreshTasklist(div, tasks)
+    {
+        var html = ""; 
+        var row_c=0;
+        var div_id = div.substr(1);
+
+        console.log("Refreshing "+div+"..");
+
+        if(Array.isArray(tasks) && tasks.length > 0)
+        {
             for(var i=0; i < tasks.length; i++) 
             {
                 row_c++;
@@ -77,30 +120,14 @@ class VrijView
                 html +=   "<td>" + location + "</td>"; 
 
                 html +=  "</tr>";
-            }	
-        } else { html += "<tr><td colspan=3>Geen taken gevonden</td></tr>"; }
-        html += "</tbody></table>";
-
-        $(div).html(html);
-
-        // fill dropdown header
-        var ddtxt = "<span id='"+div_id+"-caret'>▼</span>" + "<strong>" + row_c + (row_c==1 ? " ophaaltaak" : " ophaaltaken") + " in huidige pool" + "</strong>";
-        $(div+"-dropdown").html(ddtxt);
-
-        // unique elements 
-        switch(div)
-        {
-            case "#tasklist-accepteerde":
-                $(div+"-spec").html("<a id='btn-submit' onClick='c.sendToFinalForm(0)' class='ui-btn-half ui-green ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Start Ophaal</a>");
-                break;
-            case "#tasklist-aangeboden":
-                $(div+"-spec").html("<a id='btn-submit' onClick='c.renderAcceptBulkPopup()' class='ui-btn-half ui-blue ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Accepteer Taken</a>");
-                break;
-
-            default:
+            }
         }
 
+        $(div + "-rows").html(html);
 
+        // fix dropdown
+        $(div + "-amount").html(row_c + (row_c==1 ? " ophaaltaak" : " ophaaltaken"));
+        
     }
 
     showPopupTask(div, task)

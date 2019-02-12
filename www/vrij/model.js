@@ -13,18 +13,18 @@ class VrijModel
     {
         if(!callback)
         {
-            this.requestTasklist(2)
             //console.log("Request made..");
+            this.requestTasklist(2)
         }
         else if (callback && step==1)
         {
-            this.requestTasklist(300);
             //console.log("Offered callback success");
+            this.requestTasklist(300);
         }
         else if (callback && step==2)
         {
             //console.log("Accepted callback success");
-            this.c.reloadTasklist(true);
+            this.c.refreshTasklist(true);
         }
     }
 

@@ -46,6 +46,16 @@ class VrijController
         this.dropdownSlide('#tasklist-aangeboden');
     }
 
+    /**
+     * Refreshes lists without re-rendering the entire page
+     */
+    refreshTasklist()
+    {
+        this.v.refreshTasklist("#tasklist-accepteerde", this.acceptedTasks);
+        this.v.refreshTasklist("#tasklist-aangeboden", this.offeredTasks);
+
+    }
+
     postAcceptedTask(id, callback)
     {
         if(!callback)
