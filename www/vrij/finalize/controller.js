@@ -23,7 +23,7 @@ class FinalizeController
         // if this isn't the first entry
         if(i>0)
         {
-            this.v.showAfrondPopup(this.m.getOrderById());
+            this.v.showAfrondPopup(this.m.getOrderById(i));
         }
     }
   

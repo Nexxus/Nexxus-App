@@ -7,26 +7,39 @@ class FinalizeView
 
     showAfrondPopup(order)
     {
-        //start frame en title
+        var prod_relations = order['product_relations'];
+
+        var products = []
+
+        // get product types
+        for(var i=0;i<prod_relations.length;i++)
+        {
+            products[i] = []
+            products[i]['id'] = prod_relations[i]['id'];
+            products[i]['name'] = prod_relations[i]['product']['name'];
+            products[i]['quantity'] = prod_relations[i]['quantity'];
+        }
+
+        // start frame en title
         var html  = "<div class='ui-popup-screen ui-overlay-inherit in' id='afrondPop'></div> "
                   + "   <div class='ui-popup-container pop in ui-popup-active' id='afrond-popup' style='top: 10vw; left: 2vw; width: 95vw;'>"
                   + "       <div class='ui-popup ui-body-inherit ui-overlay-shadow ui-corner-all' data-role='popup' id='afrondp' data-dismissible='false' style=''>"
                   + "           <h3 style='margin:0;margin-left:2vw; margin-top:1vh; text-align:center;'>Afrond formulier<hr></h3>"
                   + "           <div id='quantity-form' class='ui-resize ui-content ui-body-a' data-role='content' data-theme='a' role='main'>";
         
-        //quantity form
-        html += "                   <label><b> Noteer de juiste product hoeveelheiden.</b></label>"
+        // quantity form
+        html += "                   <label><b> Noteer de juiste product hoeveelheiden.</b></label>";
 
-        for(var p =0; p < productTypes.length; p++)
+        for(var i =0; i < products.length; i++)
         {
-            html += "               <label>"+ productTypes[p][1] + "</label>"
+            html += "               <label>"+ products[i]['name'] + "</label>"
                         +"          <div class='ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>"
                             +"          <div class='ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit'>"
-                                + "         <input value='"+ productTypes[p][2] +"' id='"+ productTypes[p][1] + "' class='inputnum' type='number' value='1'>"
+                                + "         <input value='"+ products[i]['quantity'] +"' id='"+ products[i]['id'] + "' class='inputnum' type='number' value='1'>"
                             +"          </div>"
                     + "             </div>";
         }
-        //delivery location
+        // delivery location
         html += "                   <hr><label> Heeft u de producten afgeleverd op de afgesproken locatie? </label> "
                 + "                 <div class='ui-center'>"
                     +"                  <a onclick='' id='btn-submit' class='ui-btn ui-options ui-red'><img src='include/css/images/icons-png/delete-white.png'></a>"
@@ -34,7 +47,7 @@ class FinalizeView
                 +"                  </div>"
             +"                  </div>";
 
-        //photo form
+        // photo form
         html += "               <div id='photo-form' class='ui-content ui-body-a' data-role='content' data-theme='a' role='main' style='display: block;'>"
                 +"                  <h3> Foto's </h3>"
                 + "                 <label>Klik op de vakjes om foto's te maken van de producten.</label>"
