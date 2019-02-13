@@ -213,7 +213,9 @@ div.ui-controlgroup-label {
 
 .visibility {
 }
-
+#header{
+  height: 3vh;
+}
 .pooltitle {
   width: auto !important;
   max-width: 100% !important;
