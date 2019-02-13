@@ -26,6 +26,11 @@ class FinalizeController
             this.v.showAfrondPopup(this.m.getOrderById(i));
         }
     }
+
+    renderNextTask(current, tasks)
+    {
+
+    }
   
     renderPhotoForm() 
     {
