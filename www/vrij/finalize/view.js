@@ -4,6 +4,7 @@ class FinalizeView
     {
     
     }
+
     showAfrondPopup(productTypes){
 
         //start frame en title
@@ -51,6 +52,7 @@ class FinalizeView
         $("#content").after(html);
         $("#photo-form").hide();
     }
+
     closePopup() 
     {
         $("#afrondPop").remove();
@@ -129,9 +131,6 @@ class FinalizeView
         $("#wheel").remove();
         $("#header").after("<div id='wheel'></div>");
 
-        console.log(tasks);
-        console.log(tasks[current]);
-
         var html = ""
                     + "<p class='previous'>"
                         + "<span id='previous-index'>0</span>.&nbsp;"
@@ -146,9 +145,6 @@ class FinalizeView
                         + "<span id='next-label'></span>"
                     + "</p>"
             $("#wheel").html(html);
-
-        console.log("current task: "+current);
-        console.log("task length: "+tasks.length);
 
         if(current < tasks.length)
         {
