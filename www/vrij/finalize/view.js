@@ -120,7 +120,7 @@ class FinalizeView
         }
         else 
         {
-            $("#finalize-buttons").html("<a onClick='c.goBack()' class='ui-btn ui-half ui-options ui-green'>Voltooi Ophaaldienst<img src='include/css/images/icons-png/check-white.png'></a></div>");
+            $("#finalize-buttons").html("<a onClick='c.goBack()' class='ui-btn ui-half ui-options ui-green'>Voltooi<br>Ophaaldienst&nbsp;<img src='include/css/images/icons-png/check-white.png'></a></div>");
         }
     }
   
@@ -179,7 +179,7 @@ class FinalizeView
             $("#previous-label").html(tasks[current-1]['supplier']['street']);
             $("#current-index").html(current + 1);
             $("#current-label").html("Einde rit");
-            $("#next-index").html(current + 2);
+            $("#next-index").html("");
             $("#next-label").html("");
         }
 
