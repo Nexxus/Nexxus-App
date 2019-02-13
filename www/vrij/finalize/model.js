@@ -13,7 +13,6 @@ class FinalizeModel
         this.acceptedTasks = JSON.parse(sessionStorage.getItem("acceptedTasks"));
 
         this.current = 1;
-        this.createDummy();
         this.createDummyTypes();
     }
 
