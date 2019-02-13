@@ -5,49 +5,46 @@ class FinalizeView
     
     }
 
-    showAfrondPopup(productTypes){
-
+    showAfrondPopup(order)
+    {
         //start frame en title
-        var html = "<div class='ui-popup-screen ui-overlay-inherit in' id='afrondPop'></div> "
-        + "<div class='ui-popup-container pop in ui-popup-active' id='afrond-popup' style='top: 10vw; left: 2vw; width: 95vw;'>"
-                  + "<div class='ui-popup ui-body-inherit ui-overlay-shadow ui-corner-all' data-role='popup' id='afrondp' data-dismissible='false' style=''>"
-                  + "<a onclick='c.closePopup()' style='position:relative; float: right;margin:10px'  data-role='button'  class='ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right ui-red' ></a>"
-                  + "<h3 style='margin:0;margin-left:2vw; margin-top:1vh;'>Afrond formulier</h3>"
-                 + " <div id='quantity-form' class='ui-resize ui-content ui-body-a' data-role='content' data-theme='a' role='main'>";
+        var html  = "<div class='ui-popup-screen ui-overlay-inherit in' id='afrondPop'></div> "
+                  + "   <div class='ui-popup-container pop in ui-popup-active' id='afrond-popup' style='top: 10vw; left: 2vw; width: 95vw;'>"
+                  + "       <div class='ui-popup ui-body-inherit ui-overlay-shadow ui-corner-all' data-role='popup' id='afrondp' data-dismissible='false' style=''>"
+                  + "           <h3 style='margin:0;margin-left:2vw; margin-top:1vh; text-align:center;'>Afrond formulier<hr></h3>"
+                  + "           <div id='quantity-form' class='ui-resize ui-content ui-body-a' data-role='content' data-theme='a' role='main'>";
         
         //quantity form
-        html += "<label><b> Noteer de hoeveelheid ontvangen. </b></label>"
-        for(var p =0; p < productTypes.length; p++){
-        html += "<label>"+ productTypes[p][1] + "</label>"
-                +"<div class='ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>"
-                    +"<div class='ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit'>"
-                        + "<input value='"+ productTypes[p][2] +"' id='"+ productTypes[p][1] + "' class='inputnum' type='number' value='1'>"
-                    +"</div>"
-                + "</div>";
+        html += "                   <label><b> Noteer de juiste product hoeveelheiden.</b></label>"
+
+        for(var p =0; p < productTypes.length; p++)
+        {
+            html += "               <label>"+ productTypes[p][1] + "</label>"
+                        +"          <div class='ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>"
+                            +"          <div class='ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit'>"
+                                + "         <input value='"+ productTypes[p][2] +"' id='"+ productTypes[p][1] + "' class='inputnum' type='number' value='1'>"
+                            +"          </div>"
+                    + "             </div>";
         }
         //delivery location
-        html += "<hr><label> Heeft u de producten afgeleverd op de afgesproken locatie? </label> "
-                + "<div class='ui-center'>"
-                    +"<a onclick='' id='btn-submit' class='ui-btn ui-options ui-red'>" 
-                        +"Nee  <img src='include/css/images/icons-png/delete-white.png'>"
-                    +"</a>"
-                    +"<a onclick='c.renderPhotoForm()' id='btn-submit' class='ui-btn ui-options ui-green'>" 
-                        + "Ja <img src='include/css/images/icons-png/check-white.png'>"
-                    +"</a>"
-                +"</div>"
-            +"</div>";
+        html += "                   <hr><label> Heeft u de producten afgeleverd op de afgesproken locatie? </label> "
+                + "                 <div class='ui-center'>"
+                    +"                  <a onclick='' id='btn-submit' class='ui-btn ui-options ui-red'><img src='include/css/images/icons-png/delete-white.png'></a>"
+                    +"                  <a onclick='c.renderPhotoForm()' id='btn-submit' class='ui-btn ui-options ui-green'>Ja <img src='include/css/images/icons-png/check-white.png'></a>"
+                +"                  </div>"
+            +"                  </div>";
 
         //photo form
-        html += "<div id='photo-form' class='ui-content ui-body-a' data-role='content' data-theme='a' role='main' style='display: block;'>"
-                +"<h3> Foto's </h3>"
-                + "<label>Klik op de vakjes om foto's te maken van de producten.</label>"
-                + "<table>"
-                    + "<div id='photo-icons' class='ui-center'></div>"
-                +"</table>"
-                +"<div id='photo-submit' class='ui-center'>"
-                    +"<a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm(false)'>Verstuur</a>"
-                +"</div>"
-            +"</div>";
+        html += "               <div id='photo-form' class='ui-content ui-body-a' data-role='content' data-theme='a' role='main' style='display: block;'>"
+                +"                  <h3> Foto's </h3>"
+                + "                 <label>Klik op de vakjes om foto's te maken van de producten.</label>"
+                + "                 <table>"
+                    + "                 <div id='photo-icons' class='ui-center'></div>"
+                +"                  </table>"
+                +"                  <div id='photo-submit' class='ui-center'>"
+                    +"                  <a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm(false)'>Verstuur</a>"
+                +"                  </div>"
+            +"                  </div>";
 
         $("#content").after(html);
         $("#photo-form").hide();
@@ -69,8 +66,6 @@ class FinalizeView
             sup.street = this.checkNullValue(sup.street, "n/a");
             sup.name = this.checkNullValue(sup.name, "n/a");
             sup.phone = this.checkNullValue(sup.phone, "n/a");
-
-            console.log(sup);
 
             // title
             var currentTask = "<h3 class='details'> Details: </h3>";

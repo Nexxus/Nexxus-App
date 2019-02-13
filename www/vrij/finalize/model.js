@@ -62,11 +62,17 @@ class FinalizeModel
         this.productTypes[0][1] = "Computer";
         this.productTypes[0][2] = "4";
 
-        this.productTypes[1][1] = "laptops";
+        this.productTypes[1][1] = "Laptops";
         this.productTypes[1][2] = "3";
 
         this.productTypes[2][1] = "Monitors";
         this.productTypes[2][2] = "4";
+    }
+
+    getOrderById(id)
+    {
+       console.log(this.acceptedTasks); 
+       console.log(this.acceptedTasks[id]); 
     }
 
     getTypes()
