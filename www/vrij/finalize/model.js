@@ -21,22 +21,6 @@ class FinalizeModel
         return sessionStorage.getItem("finalitem");
     }
 
-    getIndexById(id)
-    {
-        var tasks = this.acceptedTasks;
-        var needle = -1;
-
-        for(var index=0;index<tasks.length;index++)
-        {
-            if(tasks[index]['id'] == id)
-            {
-                needle = index;
-            }
-        }
-
-        return needle;
-    }
-  
     setOrderStatusDone(id) 
     {
         $.ajax({
@@ -91,22 +75,44 @@ class FinalizeModel
 
     getOrderById(id)
     {
-        console.log(this.acceptedTasks); console.log("Entry #" + id); console.log(this.acceptedTasks[id]);
         return this.acceptedTasks[id];
     }
 
+    getIndexById(id)
+    {
+        var tasks = this.acceptedTasks;
+        var needle = -1;
+
+        for(var index=0;index<tasks.length;index++)
+        {
+            if(tasks[index]['id'] == id)
+            {
+                needle = index;
+            }
+        }
+
+        return needle;
+    }
+  
+    /**
+     * Returns array of dummy types
+     */
     getTypes()
     {
         return this.productTypes;
     }
 
-    // returns the number of the current task
+    /** 
+     * Returns the number of the current task
+     */
     getCurrentTask() 
     {
         return this.current;
     }
   
-    // returns an array with the details about the current task
+    /** 
+     * Returns an array with the details about the current task
+     */
     getTasks() 
     {
         return this.tasks;

@@ -123,9 +123,10 @@ class FinalizeView
               +  "</table> ";
         
             // load options
-            currentTask += "<div id='finalize-buttons' class='ui-center'>" +
-                              "<a onClick='c.renderAccept()' data-rel='popup' data-transition='pop' data-position-to='window' id='btn-submit' class='ui-btn ui-options ui-red'>Annuleren  <img src='include/css/images/icons-png/delete-white.png'></a>"; 
-            currentTask += "<a onClick='c.renderAfrondPopup(" + current + ")' class='ui-btn ui-options ui-green'>Afronden <img src='include/css/images/icons-png/check-white.png'></a></div>";
+            currentTask += "<div id='finalize-buttons' class='ui-center'>";
+            currentTask += "    <a onClick='' data-rel='popup' data-transition='pop' data-position-to='window' id='btn-submit' class='ui-btn ui-options ui-red'>Annuleren  <img src='include/css/images/icons-png/delete-white.png'></a>"; 
+            currentTask += "    <a onClick='c.renderAfrondPopup(" + current + ")' class='ui-btn ui-options ui-green'>Afronden <img src='include/css/images/icons-png/check-white.png'></a>";
+            currentTask += "</div>";
         
             $("#content").html(currentTask);
         }
