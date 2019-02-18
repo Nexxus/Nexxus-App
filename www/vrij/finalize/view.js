@@ -33,19 +33,19 @@ class FinalizeView
         for(var i =0; i < products.length; i++)
         {
             html += "               <label>"+ products[i]['name'] + "</label>"
-                        +"          <div class='ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>"
-                            +"          <div class='ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit'>"
-                                + "         <input value='"+ products[i]['quantity'] +"' id='"+ products[i]['id'] + "' class='inputnum' type='number' value='1'>"
-                            +"          </div>"
-                    + "             </div>";
+                  + "               <div class='ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>"
+                  + "                   <div class='ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit'>"
+                  + "                       <input value='"+ products[i]['quantity'] +"' id='"+ products[i]['id'] + "' class='inputnum' type='number' value='1'>"
+                  + "                   </div>"
+                  + "               </div>";
         }
         // delivery location
         html += "                   <hr><label> Heeft u de producten afgeleverd op de afgesproken locatie? </label> "
-                + "                 <div class='ui-center'>"
-                    +"                  <a onclick='' id='btn-submit' class='ui-btn ui-options ui-red'><img src='include/css/images/icons-png/delete-white.png'></a>"
-                    +"                  <a onclick='c.renderPhotoForm()' id='btn-submit' class='ui-btn ui-options ui-green'>Ja <img src='include/css/images/icons-png/check-white.png'></a>"
-                +"                  </div>"
-            +"                  </div>";
+             + "                    <div class='ui-center'>"
+             + "                        <a onclick='' id='btn-submit' class='ui-btn ui-options ui-red'><img src='include/css/images/icons-png/delete-white.png'></a>"
+             + "                        <a onclick='c.renderPhotoForm()' id='btn-submit' class='ui-btn ui-options ui-green'>Ja <img src='include/css/images/icons-png/check-white.png'></a>"
+             + "                    </div>"
+             + "                 </div>";
 
         // photo form
         html += "               <div id='photo-form' class='ui-content ui-body-a' data-role='content' data-theme='a' role='main' style='display: block;'>"
@@ -69,7 +69,7 @@ class FinalizeView
         $("#afrond-popup").remove();
     }
 
-    showCurrentTask(current, last, task) 
+    showCurrentTask(current, task) 
     {
         if(current < task.length)
         {
@@ -124,7 +124,7 @@ class FinalizeView
             // load options
             currentTask += "<div id='finalize-buttons' class='ui-center'>" +
                               "<a onClick='c.renderAccept()' data-rel='popup' data-transition='pop' data-position-to='window' id='btn-submit' class='ui-btn ui-options ui-red'>Annuleren  <img src='include/css/images/icons-png/delete-white.png'></a>"; 
-            currentTask += "<a onClick='c.renderFinalForm("+(current + 1)+")' class='ui-btn ui-options ui-green'>Afronden <img src='include/css/images/icons-png/check-white.png'></a></div>";
+            currentTask += "<a onClick='c.renderAfrondPopup(" + current + ")' class='ui-btn ui-options ui-green'>Afronden <img src='include/css/images/icons-png/check-white.png'></a></div>";
         
             $("#content").html(currentTask);
         }

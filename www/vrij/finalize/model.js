@@ -71,6 +71,8 @@ class FinalizeModel
 
     getOrderById(id)
     {
+        console.log(this.acceptedTasks);
+        console.log("Entry #" + id);
         console.log(this.acceptedTasks[id]);
         return this.acceptedTasks[id];
     }
