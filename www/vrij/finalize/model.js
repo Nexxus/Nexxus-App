@@ -117,15 +117,4 @@ class FinalizeModel
     {
         return this.tasks;
     }
-  
-    // changes the current task to the next
-    setNextTask() 
-    {
-        if (this.current < this.tasks.length - 1) 
-        {
-            this.current++;
-        } else {
-            window.open("vrij.html", "_self");
-        }
-    }
 }
