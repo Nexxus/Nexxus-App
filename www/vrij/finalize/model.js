@@ -73,6 +73,26 @@ class FinalizeModel
         this.productTypes[2][2] = "4";
     }
 
+    getOrderById(id)
+    {
+        var tasks = this.acceptedTasks;
+        var needle = -1;
+
+        console.log("Searching for #"+id+" in tasks..");
+
+        for(var i=0;i<tasks.length;i++)
+        {
+            if(tasks[i]['id'] == id)
+            {
+                needle = tasks[i];
+                console.log("Gotcha!");
+                console.log(needle);
+            }
+        }
+
+        return needle;
+    }
+
     getOrderByIndex(id)
     {
         return this.acceptedTasks[id];
@@ -103,10 +123,23 @@ class FinalizeModel
     }
     */
 
-    getTypesFromOrder(id)
+    getProductsFromOrder(id)
     {
-        var order = this.
+        var order = this.getOrderById(id);
         
+        return order['product_relations'];
+    }
+
+    getNamesFromProducts(products)
+    {
+        var names = [];
+
+        for(var i=0;i<products.length;i++)
+        {
+            names[i] = products[i]['product']['name'];
+        }
+
+        return names;
     }
 
     /** 

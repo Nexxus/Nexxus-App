@@ -44,7 +44,7 @@ class FinalizeView
         html += "                   <hr><label> Heeft u de producten afgeleverd op de afgesproken locatie? </label> "
              + "                    <div class='ui-center'>"
              + "                        <a onclick='' id='btn-submit' class='ui-btn ui-options ui-red'><img src='include/css/images/icons-png/delete-white.png'></a>"
-             + "                        <a onclick='c.renderPhotoForm()' id='btn-submit' class='ui-btn ui-options ui-green'>Ja <img src='include/css/images/icons-png/check-white.png'></a>"
+             + "                        <a onclick='c.renderPhotoForm("+id+")' id='btn-submit' class='ui-btn ui-options ui-green'>Ja <img src='include/css/images/icons-png/check-white.png'></a>"
              + "                    </div>"
              + "                 </div>";
 
@@ -199,22 +199,23 @@ class FinalizeView
         $("#photo-form").hide();
     }
   
-    showPhotoForm(productTypes)
+    showPhotoForm(products)
     {
         $("#quantity-form").hide();
     
         // Getting amount out of the input 
         var quantity = [];
 
-        for(var p =0; p < productTypes.length; p++){
-            quantity[p] = $("#"+ productTypes[p][1]+ "").val();
+        for(var i=0; i < products.length; i++)
+        {
+            quantity[i] = $("#"+ productTypes[i][1]+ "").val();
         }
 
         //show images according to the amount per product
         var html;
 
-        for(var p =0; p < productTypes.length; p++){
-            html = "<h2 id='title"+ p +"'>" + productTypes[p][1]+ "</h2>";
+        for(var i =0; i < productTypes.length; i++){
+            html = "<h2 id='title"+ i +"'>" + productTypes[i]['product']['name']+ "</h2>";
             
             (quantity[p] > 999 ? quantity[p] = 999 : 0) 
             
@@ -251,11 +252,11 @@ class FinalizeView
                       break;
                     case 1:
                     html += "" 
-                    + "<td>"
-                        + "<div class='placeholder'>"
-                        + "<img src='include/css/images/placeholder.png' style='height: 40vh; width: 40vw;'/>"
-                        + "</div>" 
-                    + "</td>";
+                            + "<td>"
+                                + "<div class='placeholder'>"
+                                + "<img src='include/css/images/placeholder.png' style='height: 40vh; width: 40vw;'/>"
+                                + "</div>" 
+                            + "</td>";
                       break;
                     default:
                 }

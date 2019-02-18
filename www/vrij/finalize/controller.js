@@ -30,9 +30,9 @@ class FinalizeController
         this.v.showAfrondPopup(this.m.getOrderByIndex(id));
     }
 
-    renderPhotoForm() 
+    renderPhotoForm(id) 
     {
-        this.v.showPhotoForm(this.m.getTypes());
+        this.v.showPhotoForm(this.m.getProductsFromOrder(id));
     }
   
     submitForm(id, callback) 
