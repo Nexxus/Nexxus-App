@@ -7,6 +7,7 @@ class FinalizeView
 
     showAfrondPopup(order)
     {
+        var id = order['id'];
         var prod_relations = order['product_relations'];
 
         var products = []
@@ -55,7 +56,7 @@ class FinalizeView
                     + "                 <div id='photo-icons' class='ui-center'></div>"
                 +"                  </table>"
                 +"                  <div id='photo-submit' class='ui-center'>"
-                    +"                  <a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm(false)'>Verstuur</a>"
+                    +"                  <a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm("+ id +", false)'>Verstuur</a>"
                 +"                  </div>"
             +"                  </div>";
 
@@ -179,6 +180,8 @@ class FinalizeView
             $("#current-label").html(tasks[current]['supplier']['street']);
         }
         else {
+            console.log(tasks);
+            console.log(current);
             $("#previous-index").html(current);
             $("#previous-label").html(tasks[current-1]['supplier']['street']);
             $("#current-index").html(current + 1);

@@ -20,6 +20,22 @@ class FinalizeModel
     {
         return sessionStorage.getItem("finalitem");
     }
+
+    getIndexById(id)
+    {
+        var tasks = this.acceptedTasks;
+        var needle = -1;
+
+        for(var index=0;index<tasks.length;index++)
+        {
+            if(tasks[index]['id'] == id)
+            {
+                needle = index;
+            }
+        }
+
+        return needle;
+    }
   
     setOrderStatusDone(id) 
     {
@@ -27,6 +43,7 @@ class FinalizeModel
             async: true,
             crossDomain: true,
             model: this,
+            id: id,
             url:
                 this.url +
                 "/purchaseorderstatus?bearer=" +
@@ -41,9 +58,12 @@ class FinalizeModel
             mimeType: "multipart/form-data",
             success: function(data) 
             {
-                this.model.c.submitForm(true);
+                console.log(this.id);
+                console.log("Order #"+this.id+" successfully submit!");
+                this.model.c.submitForm(this.id, true);
             },
-            error: function() {
+            error: function(xhr) {
+                console.log("Order #"+this.id+" submit failed. Error: "+xhr.status);
             }
         });
     }
@@ -71,9 +91,7 @@ class FinalizeModel
 
     getOrderById(id)
     {
-        console.log(this.acceptedTasks);
-        console.log("Entry #" + id);
-        console.log(this.acceptedTasks[id]);
+        console.log(this.acceptedTasks); console.log("Entry #" + id); console.log(this.acceptedTasks[id]);
         return this.acceptedTasks[id];
     }
 

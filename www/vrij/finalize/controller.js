@@ -4,8 +4,6 @@ class FinalizeController
     {
         this.m = new FinalizeModel(this);
         this.v = new FinalizeView();
-    
-        this.id = this.m.getFinalItem();
     }
   
     /**
@@ -32,23 +30,20 @@ class FinalizeController
         this.v.showAfrondPopup(this.m.getOrderById(id));
     }
 
-    renderNextTask(current, tasks)
-    {
-
-    }
-  
     renderPhotoForm() 
     {
         this.v.showPhotoForm(this.m.getTypes());
     }
   
-    submitForm(callback) 
+    submitForm(id, callback) 
     {
         if (!callback) 
         {
-            this.m.setOrderStatusDone(this.id);
+            this.m.setOrderStatusDone(id);
         } else 
         {
+            var index = this.m.getIndexById(id);
+            this.renderFinalForm(index+1);
             this.closePopup();
         }
     }
