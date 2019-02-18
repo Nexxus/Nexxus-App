@@ -73,7 +73,7 @@ class FinalizeModel
         this.productTypes[2][2] = "4";
     }
 
-    getOrderById(id)
+    getOrderByIndex(id)
     {
         return this.acceptedTasks[id];
     }
@@ -96,10 +96,17 @@ class FinalizeModel
   
     /**
      * Returns array of dummy types
-     */
+     *
     getTypes()
     {
         return this.productTypes;
+    }
+    */
+
+    getTypesFromOrder(id)
+    {
+        var order = this.
+        
     }
 
     /** 

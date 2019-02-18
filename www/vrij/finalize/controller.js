@@ -27,7 +27,7 @@ class FinalizeController
      */
     renderAfrondPopup(id)
     {
-        this.v.showAfrondPopup(this.m.getOrderById(id));
+        this.v.showAfrondPopup(this.m.getOrderByIndex(id));
     }
 
     renderPhotoForm() 
@@ -51,28 +51,6 @@ class FinalizeController
     closePopup()
     {
         this.v.closePopup();
-    }
-  
-    renderAccept() 
-    {
-        this.m.setNextTask();
-        this.v.showCurrentTask(
-            this.m.getCurrentTask(),
-            this.m.getTasks().length - 1,
-            this.m.getTasks()
-        );
-        this.v.showWheel(this.m.getCurrentTask(), this.m.getTasks());
-    }
-  
-    renderCancel() 
-    {
-        this.m.setNextTask();
-        this.v.showCurrentTask(
-          this.m.getCurrentTask(),
-          this.m.getTasks().length - 1,
-          this.m.getTasks()
-        );
-        this.v.showWheel(this.m.getCurrentTask(), this.m.getTasks());
     }
   
     goBack() 
