@@ -13,7 +13,6 @@ class FinalizeModel
         this.acceptedTasks = JSON.parse(sessionStorage.getItem("acceptedTasks"));
 
         this.current = 1;
-        this.createDummyTypes();
     }
 
     getFinalItem() 
@@ -51,28 +50,28 @@ class FinalizeModel
             }
         });
     }
-    
-    createDummyTypes()
+
+    adjustProductQuantities(id)
     {
-        for (var x = 0; x <= 2; x++) 
+        var currentOrder = this.getOrderById(id);
+
+        var products = this.getProductsFromOrder(id);
+
+        for(var i=0; i < products.length; i++)
         {
-            this.productTypes[x] = [x];
-            for (var y = 0; y <= 2; y++) 
-            {
-                this.productTypes[x][y] = 0;
-            }
+            var input = $("#afrond-quantity-" + products[i]['id']).val();
+
+            // find current product
+            var pid = this.getProductFromOrderById(id, products[i]['id']);
+
+            console.log(pid);
         }
 
-        this.productTypes[0][1] = "Computer";
-        this.productTypes[0][2] = "4";
-
-        this.productTypes[1][1] = "Laptops";
-        this.productTypes[1][2] = "3";
-
-        this.productTypes[2][1] = "Monitors";
-        this.productTypes[2][2] = "4";
+        // overwrite acceptedTasks
+        console.log(products);
+        console.log(this.acceptedTasks);
     }
-
+    
     getOrderById(id)
     {
         var tasks = this.acceptedTasks;
@@ -85,8 +84,6 @@ class FinalizeModel
             if(tasks[i]['id'] == id)
             {
                 needle = tasks[i];
-                console.log("Gotcha!");
-                console.log(needle);
             }
         }
 
@@ -114,20 +111,31 @@ class FinalizeModel
         return needle;
     }
   
-    /**
-     * Returns array of dummy types
-     *
-    getTypes()
-    {
-        return this.productTypes;
-    }
-    */
-
     getProductsFromOrder(id)
     {
         var order = this.getOrderById(id);
         
         return order['product_relations'];
+    }
+
+    getProductFromOrderById(id, pid)
+    {
+        var products = this.getProductsFromOrder(id);
+        console.log("Getting product #"+pid+" from order #"+id+".."); 
+        console.log(products);
+
+        var needle = -1;
+
+        for(var i=0;i<products.length;i++)
+        {
+            if(products[i]['id'] == id)
+            {
+                needle = i;
+            }
+        }
+
+        return needle;
+
     }
 
     getNamesFromProducts(products)

@@ -32,6 +32,7 @@ class FinalizeController
 
     renderPhotoForm(id) 
     {
+        this.m.adjustProductQuantities(id);
         this.v.showPhotoForm(this.m.getProductsFromOrder(id));
     }
   

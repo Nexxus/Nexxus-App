@@ -36,7 +36,7 @@ class FinalizeView
             html += "               <label>"+ products[i]['name'] + "</label>"
                   + "               <div class='ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>"
                   + "                   <div class='ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit'>"
-                  + "                       <input value='"+ products[i]['quantity'] +"' id='"+ products[i]['id'] + "' class='inputnum' type='number' value='1'>"
+                  + "                       <input value='"+ products[i]['quantity'] +"' id='afrond-quantity-"+ products[i]['id'] + "' class='inputnum' type='number' value='1'>"
                   + "                   </div>"
                   + "               </div>";
         }
@@ -193,12 +193,6 @@ class FinalizeView
 
     }
   
-    showQuantityForm() 
-    {
-        $("#quantity-form").show();
-        $("#photo-form").hide();
-    }
-  
     showPhotoForm(products)
     {
         $("#quantity-form").hide();
@@ -208,27 +202,28 @@ class FinalizeView
 
         for(var i=0; i < products.length; i++)
         {
-            quantity[i] = $("#"+ productTypes[i][1]+ "").val();
+            quantity[i] = $("#"+ products[i][1]+ "").val();
         }
 
         //show images according to the amount per product
         var html;
 
-        for(var i =0; i < productTypes.length; i++){
-            html = "<h2 id='title"+ i +"'>" + productTypes[i]['product']['name']+ "</h2>";
+        for(var i=0; i < products.length; i++)
+        {
+            html = "<h2 id='title"+ i +"'>" + products[i]['product']['name']+ "</h2>";
             
-            (quantity[p] > 999 ? quantity[p] = 999 : 0) 
+            (quantity[i] > 999 ? quantity[i] = 999 : 0) 
             
-            for (var i = 0; i < quantity[p]; i++) 
+            for (var j = 0; j < quantity[j]; j++) 
             {
                 var imageOption = "" 
                     + "<td>"
                         + "<div class='image-upload'>"
-                            + "<label for='file-input-" + p +  i + "'>"
-                                + "<h4>Foto #" + (i + 1) + "</h4>"
-                                + "<img id='file-input-img-" +  p  +  i + "' src='include/img/plus.png' class='ui-plus' max-width='40%' />"
+                            + "<label for='file-input-" + i +  j + "'>"
+                                + "<h4>Foto #" + (j + 1) + "</h4>"
+                                + "<img id='file-input-img-" +  i  +  j + "' src='include/img/plus.png' class='ui-plus' max-width='40%' />"
                             + "</label>"
-                            + "<input style='display:none'id='file-input-" +  p  +  i + "' class='photo-input' type='file' onChange='c.v.changePhotoIconToSolved(" +  p  +  i + ")' />"
+                            + "<input style='display:none'id='file-input-" +  i  +  j + "' class='photo-input' type='file' onChange='c.v.changePhotoIconToSolved(" +  i  +  j + ")' />"
                         + "</div>" 
                     + "</td>";
 
@@ -246,20 +241,21 @@ class FinalizeView
                 }
             }
             
-            switch (quantity[p] % 2) 
-                {
-                    case 0:
-                      break;
-                    case 1:
-                    html += "" 
-                            + "<td>"
-                                + "<div class='placeholder'>"
-                                + "<img src='include/css/images/placeholder.png' style='height: 40vh; width: 40vw;'/>"
-                                + "</div>" 
-                            + "</td>";
-                      break;
-                    default:
-                }
+            switch (quantity[i] % 2) 
+            {
+                case 0:
+                  break;
+                case 1:
+                html += "" 
+                        + "<td>"
+                            + "<div class='placeholder'>"
+                            + "<img src='include/css/images/placeholder.png' style='height: 40vh; width: 40vw;'/>"
+                            + "</div>" 
+                        + "</td>";
+                  break;
+                default:
+            }
+
             $("#photo-icons").append(html);  
             $("#photo-form").show();
         }
