@@ -41,10 +41,11 @@ class FinalizeView
                   + "               </div>";
         }
         // delivery location
-        html += "                   <hr><label> Heeft u de producten afgeleverd op de afgesproken locatie? </label> "
+        html += ""
+//           + "                   <hr><label> Heeft u de producten afgeleverd op de afgesproken locatie? </label> "
              + "                    <div class='ui-center'>"
-             + "                        <a onclick='' id='btn-submit' class='ui-btn ui-options ui-red'><img src='include/css/images/icons-png/delete-white.png'></a>"
-             + "                        <a onclick='c.renderPhotoForm("+id+")' id='btn-submit' class='ui-btn ui-options ui-green'>Ja <img src='include/css/images/icons-png/check-white.png'></a>"
+             + "                        <a onclick='c.closePopup()' id='btn-submit' class='ui-btn ui-options ui-red'>Annuleer <img src='include/css/images/icons-png/delete-white.png'></a>"
+             + "                        <a onclick='c.renderPhotoForm("+id+")' id='btn-submit' class='ui-btn ui-options ui-green'>Bevestig <img src='include/css/images/icons-png/check-white.png'></a>"
              + "                    </div>"
              + "                 </div>";
 
@@ -74,12 +75,13 @@ class FinalizeView
     {
         if(current < task.length)
         {
-            var sup = task[current]['supplier'];
+            var order_nr    = task[current]['order_nr'];
+            var sup         = task[current]['supplier'];
             
-            sup.city = this.checkNullValue(sup.city, "n/a");
-            sup.street = this.checkNullValue(sup.street, "n/a");
-            sup.name = this.checkNullValue(sup.name, "n/a");
-            sup.phone = this.checkNullValue(sup.phone, "n/a");
+            sup.city        = this.checkNullValue(sup.city, "n/a");
+            sup.street      = this.checkNullValue(sup.street, "n/a");
+            sup.name        = this.checkNullValue(sup.name, "n/a");
+            sup.phone       = this.checkNullValue(sup.phone, "n/a");
 
             // title
             var currentTask = "<h3 class='details'> Details: </h3>";
@@ -87,6 +89,11 @@ class FinalizeView
             // details current task
             currentTask += "<table id='info' data-role='table' class='ui-responsive table-stroke ui-table ui-table-reflow'>"
                   + "<tbody>"
+                    + "<tr>"
+                        + "<td id='stad' ><b > Order Nr.: </b></td><td class='ui-width'>"
+                        + order_nr 
+                        + "</td>"
+                    + "</tr>"
                     + "<tr>"
                         + "<td id='stad' ><b > Stad: </b></td><td class='ui-width'>"
                         + sup.city
@@ -102,11 +109,11 @@ class FinalizeView
                         + this.parseTSDate(task[current]['order_date'])
                         + "</td>"
                     + "</tr>"
-                    + "<tr><td id='tijd'><b class='ui-table-cell-label'> Tijd: </b></td>"
-                        + "<td class='ui-width'>"
-                        + this.parseTSTime(task[current]['order_date'])
-                        + "</td>"
-                    + "</tr>"
+//                  + "<tr><td id='tijd'><b class='ui-table-cell-label'> Tijd: </b></td>"
+//                      + "<td class='ui-width'>"
+//                      + this.parseTSTime(task[current]['order_date'])
+//                      + "</td>"
+//                  + "</tr>"
                     + "<tr>"
                         + "<td id='contact'><b class='ui-table-cell-label' > Contact: </b></td>"
                         + "<td class='ui-width'>"
