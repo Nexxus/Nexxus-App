@@ -20,6 +20,9 @@ class FinalizeModel
         return sessionStorage.getItem("finalitem");
     }
 
+    /**
+     * Calls API to set order status to done.
+     */
     setOrderStatusDone(id) 
     {
         $.ajax({
@@ -51,6 +54,43 @@ class FinalizeModel
         });
     }
 
+    /**
+     * Calls AJAX to adjust product quantities in Nexxus 
+     *
+     * API call which hasn't been made yet, gets called before the photoform rendering
+     * (https://github.com/Nexxus/NSK/issues/196)
+     */ 
+    setOrderProductQuantity(id, pid, quantity)
+    {
+        $.ajax({
+            async: true,
+            crossDomain: true,
+            model: this,
+            id: id,
+            url:
+                this.url +
+                "/purchaseorderstatus?bearer=" +
+                this.token +
+            method: "PUT",
+            headers: {},
+            processData: false,
+            contentType: false,
+            mimeType: "multipart/form-data",
+            success: function(data) 
+            {
+                console.log(this.id);
+                console.log("Order #"+this.id+" successfully submit!");
+                this.model.c.submitForm(this.id, true);
+            },
+            error: function(xhr) {
+                console.log("Order #"+this.id+" submit failed. Error: "+xhr.status);
+            }
+        });
+    }
+
+    /**
+     * Adjusts the product quantities in orders in both the local variable and online.
+     */
     adjustProductQuantities(id)
     {
         var currentOrder = this.getOrderById(id);
@@ -73,8 +113,6 @@ class FinalizeModel
         }
 
         // overwrite acceptedTasks
-        //console.log(products);
-        //console.log(this.acceptedTasks);
     }
     
     /**
