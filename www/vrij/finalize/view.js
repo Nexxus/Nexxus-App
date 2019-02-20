@@ -54,12 +54,9 @@ class FinalizeView
                 +"                  <h3> Foto's </h3>"
                 + "                 <label>Klik op de vakjes om foto's te maken van de producten.</label>"
                 + "                 <table>"
-                    + "                 <div id='photo-icons' class='ui-center'></div>"
-                +"                  </table>"
-                +"                  <div id='photo-submit' class='ui-center'>"
-                    +"                  <a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm("+ id +", false)'>Verstuur</a>"
-                +"                  </div>"
-            +"                  </div>";
+                + "                     <div id='photo-icons' class='ui-center'></div>"
+                + "                 </table>"
+                + "                  </div>";
 
         $("#content").after(html);
         $("#photo-form").hide();
@@ -200,28 +197,23 @@ class FinalizeView
 
     }
   
-    showPhotoForm(products)
+    showPhotoForm(orderId, products)
     {
         $("#quantity-form").hide();
-    
-        // Getting amount out of the input 
-        var quantity = [];
+
+        var html = "";
+
+        console.log(products);
 
         for(var i=0; i < products.length; i++)
         {
-            quantity[i] = $("#"+ products[i][1]+ "").val();
-        }
+            var quantity = products[i]['quantity'];
 
-        //show images according to the amount per product
-        var html;
-
-        for(var i=0; i < products.length; i++)
-        {
-            html = "<h2 id='title"+ i +"'>" + products[i]['product']['name']+ "</h2>";
+            html += "<h2 id='title-"+ i +"'>" + products[i]['product']['name']+ "</h2><table>";
             
-            (quantity[i] > 999 ? quantity[i] = 999 : 0) 
+            (quantity > 999 ? quantity = 999 : 0) 
             
-            for (var j = 0; j < quantity[j]; j++) 
+            for (var j = 0; j < quantity; j++) 
             {
                 var imageOption = "" 
                     + "<td>"
@@ -230,42 +222,29 @@ class FinalizeView
                                 + "<h4>Foto #" + (j + 1) + "</h4>"
                                 + "<img id='file-input-img-" +  i  +  j + "' src='include/img/plus.png' class='ui-plus' max-width='40%' />"
                             + "</label>"
-                            + "<input style='display:none'id='file-input-" +  i  +  j + "' class='photo-input' type='file' onChange='c.v.changePhotoIconToSolved(" +  i  +  j + ")' />"
+                            + "<input style='display:none' id='file-input-" +  i  +  j + "' class='photo-input' type='file' onChange='c.v.changePhotoIconToSolved(" +  i  +  j + ")' />"
                         + "</div>" 
                     + "</td>";
 
-                html += imageOption;
 
-                switch (i % 2) 
+                switch (j % 2) 
                 {
                     case 0:
-                      imageOption =+  "<tr>" + imageOption;
+                      html +=  "<tr>" + imageOption;
                       break;
                     case 1:
-                      imageOption =+  imageOption + "</tr>";
+                      html +=  imageOption + "</tr>";
                       break;
                     default:
                 }
             }
-            
-            switch (quantity[i] % 2) 
-            {
-                case 0:
-                  break;
-                case 1:
-                html += "" 
-                        + "<td>"
-                            + "<div class='placeholder'>"
-                            + "<img src='include/css/images/placeholder.png' style='height: 40vh; width: 40vw;'/>"
-                            + "</div>" 
-                        + "</td>";
-                  break;
-                default:
-            }
-
-            $("#photo-icons").append(html);  
-            $("#photo-form").show();
+            html += "</tr></table>"; 
         }
+            html += ""
+                  + "<a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm("+ orderId +", false)'>Verstuur</a>";
+
+        $("#photo-icons").html(html);  
+        $("#photo-form").show();
     }
   
     changePhotoIconToSolved(i) 

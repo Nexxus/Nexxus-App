@@ -65,7 +65,6 @@ class FinalizeModel
             this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
             this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productIndex, quantity);
         }
-        console.log(this.acceptedTasks);
     }
 
     /**
