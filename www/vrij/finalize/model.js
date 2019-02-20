@@ -54,17 +54,22 @@ class FinalizeModel
     adjustProductQuantities(id)
     {
         var currentOrder = this.getOrderById(id);
+        var orderId = currentOrder['id'];
+
+        var orderIndex = this.getIndexById(orderId);
 
         var products = this.getProductsFromOrder(id);
 
+        // get from values and adjust them in the obj arr
         for(var i=0; i < products.length; i++)
         {
             var input = $("#afrond-quantity-" + products[i]['id']).val();
 
-            // find current product
-            var pid = this.getProductFromOrderById(id, products[i]['id']);
+            var pid = this.getPindexFromOrderById(id, products[i]['id']);
 
-            console.log(pid);
+            this.acceptedTasks[orderIndex]['product_relations'][pid]['quantity'] = input; 
+
+            console.log(this.acceptedTasks[orderIndex]['product_relations'][pid]);
         }
 
         // overwrite acceptedTasks
@@ -72,6 +77,9 @@ class FinalizeModel
         //console.log(this.acceptedTasks);
     }
     
+    /**
+     * Find an order by Order#
+     */
     getOrderById(id)
     {
         var tasks = this.acceptedTasks;
@@ -88,11 +96,17 @@ class FinalizeModel
         return needle;
     }
 
+    /**
+     * Find an order by array index
+     */
     getOrderByIndex(id)
     {
         return this.acceptedTasks[id];
     }
 
+    /**
+     * Get the index of an order by ID
+     */
     getIndexById(id)
     {
         var tasks = this.acceptedTasks;
@@ -109,6 +123,10 @@ class FinalizeModel
         return needle;
     }
   
+
+    /**
+     * Retrieve the corresponding products from an order (by ID)
+     */
     getProductsFromOrder(id)
     {
         var order = this.getOrderById(id);
@@ -116,7 +134,10 @@ class FinalizeModel
         return order['product_relations'];
     }
 
-    getProductFromOrderById(id, pid)
+    /**
+     * Retrieve a specific product from an order by OrderID and ProductID
+     */
+    getPindexFromOrderById(id, pid)
     {
         var products = this.getProductsFromOrder(id);
         console.log("[OrderById()] Getting product #"+pid+" from order #"+id+".."); 
