@@ -4,11 +4,12 @@ class FinalizeController
     {
         this.m = new FinalizeModel(this);
         this.v = new FinalizeView();
-    
-        this.id = this.m.getFinalItem();
     }
   
-    renderFinalForm(i) 
+    /**
+     * Renders wheel and details
+     */
+    renderFinalForm(id) 
     {
         console.log("Rendering final form...");
         indexc.v.showHeader("#header");
@@ -17,28 +18,33 @@ class FinalizeController
         var tasks = this.m.acceptedTasks;
 
         // render page
-        this.v.showWheel(i, tasks);
-        this.v.showCurrentTask(i, tasks.length - 1, tasks);
+        this.v.showWheel(id, tasks);
+        this.v.showCurrentTask(id, tasks);
+    }
 
-        // if this isn't the first entry
-        if(i>0)
-        {
-            this.v.showAfrondPopup(this.m.getTypes());
-        }
-    }
-  
-    renderPhotoForm() 
+    /**
+     * Renders and shows popup with form to progress
+     */
+    renderAfrondPopup(id)
     {
-        this.v.showPhotoForm(this.m.getTypes());
+        this.v.showAfrondPopup(this.m.getOrderByIndex(id));
+    }
+
+    renderPhotoForm(id) 
+    {
+        this.m.adjustProductQuantities(id);
+        this.v.showPhotoForm(id, this.m.getProductsFromOrder(id));
     }
   
-    submitForm(callback) 
+    submitForm(id, callback) 
     {
         if (!callback) 
         {
-            this.m.setOrderStatusDone(this.id);
+            this.m.setOrderStatusDone(id);
         } else 
         {
+            var index = this.m.getIndexById(id);
+            this.renderFinalForm(index+1);
             this.closePopup();
         }
     }
@@ -46,28 +52,6 @@ class FinalizeController
     closePopup()
     {
         this.v.closePopup();
-    }
-  
-    renderAccept() 
-    {
-        this.m.setNextTask();
-        this.v.showCurrentTask(
-            this.m.getCurrentTask(),
-            this.m.getTasks().length - 1,
-            this.m.getTasks()
-        );
-        this.v.showWheel(this.m.getCurrentTask(), this.m.getTasks());
-    }
-  
-    renderCancel() 
-    {
-        this.m.setNextTask();
-        this.v.showCurrentTask(
-          this.m.getCurrentTask(),
-          this.m.getTasks().length - 1,
-          this.m.getTasks()
-        );
-        this.v.showWheel(this.m.getCurrentTask(), this.m.getTasks());
     }
   
     goBack() 

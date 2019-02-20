@@ -13,21 +13,23 @@ class FinalizeModel
         this.acceptedTasks = JSON.parse(sessionStorage.getItem("acceptedTasks"));
 
         this.current = 1;
-        this.createDummy();
-        this.createDummyTypes();
     }
 
     getFinalItem() 
     {
         return sessionStorage.getItem("finalitem");
     }
-  
+
+    /**
+     * Calls API to set order status to done.
+     */
     setOrderStatusDone(id) 
     {
         $.ajax({
             async: true,
             crossDomain: true,
             model: this,
+            id: id,
             url:
                 this.url +
                 "/purchaseorderstatus?bearer=" +
@@ -42,131 +44,188 @@ class FinalizeModel
             mimeType: "multipart/form-data",
             success: function(data) 
             {
-                this.model.c.submitForm(true);
+                console.log(this.id);
+                console.log("Order #"+this.id+" successfully submit!");
+                this.model.c.submitForm(this.id, true);
             },
-            error: function() {
+            error: function(xhr) {
+                console.log("Order #"+this.id+" submit failed. Error: "+xhr.status);
             }
         });
     }
+
+    setOrderProductQuantity(order, productId, quantity)
+    {
+        var orderId = order['id'];
+        var orderIndex = this.getIndexById(orderId);
+        var productIndex = this.getPindexFromOrderById(orderId, productId);
+
+        if(quantity != this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'])
+        {
+            this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
+            this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productIndex, quantity);
+        }
+    }
+
+    /**
+     * Calls AJAX to adjust product quantities in Nexxus 
+     *
+     * API call which hasn't been made yet, gets called before the photoform rendering
+     * (https://github.com/Nexxus/NSK/issues/196)
+     */ 
+    setOrderProductQuantityApi(id, pid, quantity)
+    {
+        /*
+        $.ajax({
+            async: true,
+            crossDomain: true,
+            model: this,
+            id: id,
+            url:
+                this.url +
+                "/purchaseorderstatus?bearer=" +
+                this.token,
+            method: "PUT",
+            headers: {},
+            processData: false,
+            contentType: false,
+            mimeType: "multipart/form-data",
+            success: function(data) 
+            {
+
+            },
+            error: function(xhr) {
+
+            }
+        });
+        */
+    }
+
+    /**
+     * Adjusts the product quantities in orders in both the local variable and online.
+     */
+    adjustProductQuantities(id)
+    {
+        var currentOrder = this.getOrderById(id);
+        var orderId = currentOrder['id'];
+
+        var orderIndex = this.getIndexById(orderId);
+
+        var products = this.getProductsFromOrder(id);
+
+        // get from values and adjust them in the obj arr
+        for(var i=0; i < products.length; i++)
+        {
+            var input = $("#afrond-quantity-" + products[i]['id']).val();
+
+            this.setOrderProductQuantity(currentOrder, products[i]['id'], input);
+        }
+    }
+    
+    /**
+     * Find an order by Order#
+     */
+    getOrderById(id)
+    {
+        var tasks = this.acceptedTasks;
+        var needle = -1;
+
+        for(var i=0;i<tasks.length;i++)
+        {
+            if(tasks[i]['id'] == id)
+            {
+                needle = tasks[i];
+            }
+        }
+
+        return needle;
+    }
+
+    /**
+     * Find an order by array index
+     */
+    getOrderByIndex(id)
+    {
+        return this.acceptedTasks[id];
+    }
+
+    /**
+     * Get the index of an order by ID
+     */
+    getIndexById(id)
+    {
+        var tasks = this.acceptedTasks;
+        var needle = -1;
+
+        for(var index=0;index<tasks.length;index++)
+        {
+            if(tasks[index]['id'] == id)
+            {
+                needle = index;
+            }
+        }
+
+        return needle;
+    }
   
-    // dummy content
-    createDummy() 
+
+    /**
+     * Retrieve the corresponding products from an order (by ID)
+     */
+    getProductsFromOrder(id)
     {
-        for (var x = 1; x <= 3; x++) 
-        {
-            this.tasks[x] = [x];
-            for (var y = 0; y < 3; y++) 
-            {
-                this.tasks[x][y] = 0;
-            }
-        }
-    
-        this.tasks[1][1] = "Breedstraat 128";
-        this.tasks[1][2] = "2543";
-        this.tasks[1][3] = "29-2-2019";
-        this.tasks[1][4] = "13";
-        this.tasks[1][5] = "12:00";
-        this.tasks[1][6] = "jan";
-        this.tasks[1][7] = "06876543";
-    
-        this.tasks[2][1] = "Sirtemastraat 177";
-        this.tasks[2][2] = "2544";
-        this.tasks[2][3] = "28-3-2019";
-        this.tasks[2][4] = "15";
-        this.tasks[2][5] = "13:00";
-        this.tasks[2][6] = "jan";
-        this.tasks[2][7] = "06876542";
-    
-        this.tasks[3][1] = "Zwaardvegersgaarde";
-        this.tasks[3][2] = "2445";
-        this.tasks[3][3] = "27-4-2019";
-        this.tasks[3][4] = "17";
-        this.tasks[3][5] = "14:00";
-        this.tasks[3][6] = "jan";
-        this.tasks[3][7] = "06876541";
+        var order = this.getOrderById(id);
+        
+        return order['product_relations'];
     }
-    createDummyTypes()
+
+    /**
+     * Retrieve a specific product from an order by OrderID and ProductID
+     */
+    getPindexFromOrderById(id, pid)
     {
-        for (var x = 0; x <= 2; x++) 
+        var products = this.getProductsFromOrder(id);
+        console.log("[OrderById()] Getting product #"+pid+" from order #"+id+".."); 
+
+        var needle = -1;
+
+        for(var i=0;i<products.length;i++)
         {
-            this.productTypes[x] = [x];
-            for (var y = 0; y <= 2; y++) 
+            if(products[i]['id'] == pid)
             {
-                this.productTypes[x][y] = 0;
+                needle = i;
             }
         }
 
-        this.productTypes[0][1] = "Computer";
-        this.productTypes[0][2] = "4";
+        return needle;
 
-        this.productTypes[1][1] = "laptops";
-        this.productTypes[1][2] = "3";
-
-        this.productTypes[2][1] = "Monitors";
-        this.productTypes[2][2] = "4";
     }
-    getTypes()
+
+    getNamesFromProducts(products)
     {
-        return this.productTypes;
+        var names = [];
+
+        for(var i=0;i<products.length;i++)
+        {
+            names[i] = products[i]['product']['name'];
+        }
+
+        return names;
     }
-    // returns the number of the current task
+
+    /** 
+     * Returns the number of the current task
+     */
     getCurrentTask() 
     {
         return this.current;
     }
   
-    // returns an array with the details about the current task
+    /** 
+     * Returns an array with the details about the current task
+     */
     getTasks() 
     {
         return this.tasks;
     }
-  
-    // changes the current task to the next
-    setNextTask() 
-    {
-        if (this.current < this.tasks.length - 1) 
-        {
-            this.current++;
-        } else {
-            window.open("vrij.html", "_self");
-        }
-    }
-
-  /*submitFinalizeForm(status)
-    {
-
-        switch(status)
-        {
-            case 100:
-                // send images
-                var form = new FormData();
-                form.append("productId", 0);
-                form.append("attributeId", 0);
-                form.append("attachment", "");
-
-                $.ajax({
-                    "url": this.url + "/productattachment?bearer=" +this.token,
-                    "method": "POST",
-                    "headers": {},
-                    "processData": false,
-                    "contentType": false,
-                    "mimeType": "multipart/form-data",
-                    "model": this,
-                    "data": form,
-                    success: function(data)
-                    {
-                        this.submitFinalizeForm(200);
-                    },
-                    error: function() {
-
-                    }
-                });
-                break;
-            case 200: // on callback success, change order status
-                break;
-            case 404:
-            default:
-                break;
-        }
-    }*/
 }
