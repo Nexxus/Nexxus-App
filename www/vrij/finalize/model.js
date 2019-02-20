@@ -68,16 +68,14 @@ class FinalizeModel
         }
 
         // overwrite acceptedTasks
-        console.log(products);
-        console.log(this.acceptedTasks);
+        //console.log(products);
+        //console.log(this.acceptedTasks);
     }
     
     getOrderById(id)
     {
         var tasks = this.acceptedTasks;
         var needle = -1;
-
-        console.log("Searching for #"+id+" in tasks..");
 
         for(var i=0;i<tasks.length;i++)
         {
@@ -121,14 +119,13 @@ class FinalizeModel
     getProductFromOrderById(id, pid)
     {
         var products = this.getProductsFromOrder(id);
-        console.log("Getting product #"+pid+" from order #"+id+".."); 
-        console.log(products);
+        console.log("[OrderById()] Getting product #"+pid+" from order #"+id+".."); 
 
         var needle = -1;
 
         for(var i=0;i<products.length;i++)
         {
-            if(products[i]['id'] == id)
+            if(products[i]['id'] == pid)
             {
                 needle = i;
             }
