@@ -54,14 +54,29 @@ class FinalizeModel
         });
     }
 
+    setOrderProductQuantity(order, productId, quantity)
+    {
+        var orderId = order['id'];
+        var orderIndex = this.getIndexById(orderId);
+        var productIndex = this.getPindexFromOrderById(orderId, productId);
+
+        if(quantity != this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'])
+        {
+            this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
+            this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productIndex, quantity);
+        }
+        console.log(this.acceptedTasks);
+    }
+
     /**
      * Calls AJAX to adjust product quantities in Nexxus 
      *
      * API call which hasn't been made yet, gets called before the photoform rendering
      * (https://github.com/Nexxus/NSK/issues/196)
      */ 
-    setOrderProductQuantity(id, pid, quantity)
+    setOrderProductQuantityApi(id, pid, quantity)
     {
+        /*
         $.ajax({
             async: true,
             crossDomain: true,
@@ -70,7 +85,7 @@ class FinalizeModel
             url:
                 this.url +
                 "/purchaseorderstatus?bearer=" +
-                this.token +
+                this.token,
             method: "PUT",
             headers: {},
             processData: false,
@@ -78,14 +93,13 @@ class FinalizeModel
             mimeType: "multipart/form-data",
             success: function(data) 
             {
-                console.log(this.id);
-                console.log("Order #"+this.id+" successfully submit!");
-                this.model.c.submitForm(this.id, true);
+
             },
             error: function(xhr) {
-                console.log("Order #"+this.id+" submit failed. Error: "+xhr.status);
+
             }
         });
+        */
     }
 
     /**
@@ -105,14 +119,8 @@ class FinalizeModel
         {
             var input = $("#afrond-quantity-" + products[i]['id']).val();
 
-            var pid = this.getPindexFromOrderById(id, products[i]['id']);
-
-            this.acceptedTasks[orderIndex]['product_relations'][pid]['quantity'] = input; 
-
-            console.log(this.acceptedTasks[orderIndex]['product_relations'][pid]);
+            this.setOrderProductQuantity(currentOrder, products[i]['id'], input);
         }
-
-        // overwrite acceptedTasks
     }
     
     /**
