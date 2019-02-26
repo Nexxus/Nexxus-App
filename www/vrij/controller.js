@@ -7,6 +7,11 @@ class VrijController
 
         this.offeredTasks = [];
         this.acceptedTasks = [];
+
+        // storing collapse statuses
+        this.listCollapse = [];
+        this.listCollapse['#tasklist-aangeboden'] = false;
+        this.listCollapse['#tasklist-accepteerde'] = true;
     }
 
     reloadTasklist(callback)
@@ -41,9 +46,8 @@ class VrijController
         $("#content").append("<div id='tasklist-accepteerde'>");
         $("#content").append("<div id='tasklist-aangeboden'>");
 
-        this.v.showTasklist('#tasklist-accepteerde', 'Geaccepteerde taken', this.acceptedTasks, false);
-        this.v.showTasklist('#tasklist-aangeboden',  'Aangeboden Taken',    this.offeredTasks, false);
-        this.dropdownSlide('#tasklist-aangeboden');
+        this.v.showTasklist('#tasklist-aangeboden',  'Aangeboden Taken', this.offeredTasks, false, this.listCollapse['#tasklist-aangeboden']);
+        this.v.showTasklist('#tasklist-accepteerde', 'Geaccepteerde taken', this.acceptedTasks, false, this.listCollapse['#tasklist-accepteerde']);
     }
 
     postAcceptedTask(id, callback)
@@ -105,9 +109,19 @@ class VrijController
         this.renderAcceptedTaskList();
     }
 
-    dropdownSlide(div)
+    dropdownToggle(div)
     {
-        this.v.dropdownSlideToggle(div); 
+        console.log("Slide toggled: " + div);
+
+        if(this.listCollapse[div]) 
+        {
+            this.listCollapse[div] = false;
+        }
+        else
+        {
+            this.listCollapse[div] = true;
+        }
+
+        c.reloadTasklist(false);
     } 
-    
 }

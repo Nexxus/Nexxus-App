@@ -18,7 +18,7 @@ class VrijView
          $(div).html("<a id='btn-submit' onClick='loginc.handleLogout()' class='ui-btn-half ui-red ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Uitloggen</a>");
     }
 
-    showTasklist(div, title, tasks, header)
+    showTasklist(div, title, tasks, header, collapse)
     {
         var html = "";
         var div_id = div.substr(1);
@@ -50,7 +50,7 @@ class VrijView
         /* table rows */
         if(Array.isArray(tasks) && tasks.length > 0)
         {
-            html += "<tr style='background-color:#ddd'><td class='pooltitle' onClick=\"c.dropdownSlide('"+div+"')\" id='"+div_id+"-dropdown'></td></tr>";
+            html += "<tr style='background-color:#ddd'><td class='pooltitle' onClick=\"c.dropdownToggle('"+div+"')\" id='"+div_id+"-dropdown'></td></tr>";
             html += "<tbody id='"+div_id+"-rows' style='display: none;'>";
 
             for(var i=0; i < tasks.length; i++) 
@@ -84,8 +84,30 @@ class VrijView
         $(div).html(html);
 
         // fill dropdown header
-        var ddtxt = "<span id='"+div_id+"-caret'>▼</span>" + "<strong>" + row_c + (row_c==1 ? " ophaaltaak" : " ophaaltaken") + " in huidige pool" + "</strong>";
+        var ddtxt = "<span id='" + div_id + "-caret'>" +
+                        "▼" + 
+                    "</span>" + 
+                    "<strong>" + 
+                        row_c + 
+                        (row_c==1 ? " ophaaltaak" : " ophaaltaken") +
+                        " in huidige pool" + 
+                    "</strong>";
         $(div+"-dropdown").html(ddtxt);
+
+        // collapse dropdown if needed
+        var rows = div+"-rows"; 
+        var caret = div+"-caret";
+        
+        if(collapse)
+        {
+            $(caret).html("▲");
+            $(rows).hide();
+        }
+        else 
+        {
+            $(caret).html("▼")
+            $(rows).show();
+        }
 
         // unique elements 
         switch(div)
@@ -248,15 +270,6 @@ class VrijView
       $("#info-popup").remove();
     }
     
-    dropdownSlideToggle(div)
-    {
-        var rows = div+"-rows"; var caret = div+"-caret";
-
-        (($(caret).html()=="▼") ? $(caret).html("▲") : $(caret).html("▼"));
-
-        $(rows).toggle();
-    }
-
     parseTSDate(ts)
     {
         return ts.substring(0,ts.indexOf('T'));
