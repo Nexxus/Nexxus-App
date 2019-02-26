@@ -7,6 +7,9 @@ class VrijController
 
         this.offeredTasks = [];
         this.acceptedTasks = [];
+
+        // storing collapse statuses
+        this.listCollapse = [0, 0];
     }
 
     reloadTasklist(callback)
