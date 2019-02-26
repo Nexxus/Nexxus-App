@@ -122,6 +122,6 @@ class VrijController
             this.listCollapse[div] = true;
         }
 
-        c.reloadTasklist(false);
+        this.renderTaskList();
     } 
 }
