@@ -1,9 +1,10 @@
 class FinalizeController 
 {
-    constructor() 
+    constructor(lc) 
     {
         this.m = new FinalizeModel(this);
         this.v = new FinalizeView();
+        this.loginc = lc;
     }
   
     /**
@@ -41,7 +42,18 @@ class FinalizeController
         if (!callback) 
         {
             this.m.setOrderStatusDone(id);
-        } else 
+            var data = $("#file-input-" + id).attr('src');
+
+//          $("[type=file]").change(function ()
+//          {
+//              var file = this.files[0];
+//              reader = new FileReader();
+//              img = $(this).siblings('img');
+
+//              console.log(reader.readAsDataURL(file));
+//          });
+        } 
+        else 
         {
             var index = this.m.getIndexById(id);
             this.renderFinalForm(index+1);

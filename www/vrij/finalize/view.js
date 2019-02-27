@@ -201,13 +201,15 @@ class FinalizeView
     {
         $("#quantity-form").hide();
 
-        var html = "";
+        var html = "<form id='photoform'>";
 
         for(var i=0; i < products.length; i++)
         {
             var quantity = products[i]['quantity'];
 
-            html += "<h2 id='title-"+ i +"'>" + products[i]['product']['name']+ "</h2><table>";
+            html += ""
+                    + "<h2 id='title-"+ i +"'>" + products[i]['product']['name']+ "</h2>"
+                    + "<table>";
             
             (quantity > 999 ? quantity = 999 : 0) 
             
@@ -220,7 +222,7 @@ class FinalizeView
                                 + "<h4>Foto #" + (j + 1) + "</h4>"
                                 + "<img id='file-input-img-" + products[i]['id'] + "' src='include/img/plus.png' class='ui-plus' max-width='40%' />"
                             + "</label>"
-                            + "<input style='display:none' id='file-input-" +  products[i]['id'] + "' class='photo-input' type='file' onChange='c.v.changePhotoIconToSolved(" +  products[i]['id'] + ")' />"
+                            + "<input style='display:none' id='file-input-" + products[i]['id'] + "' class='photo-input' type='file' onChange='c.v.changePhotoIconToSolved(\"" + products[i]['id'] + "\")' />"
                         + "</div>" 
                     + "</td>";
 
@@ -241,6 +243,8 @@ class FinalizeView
 
         html += ""
               + "<a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm("+ orderId +", false)'>Verstuur</a>";
+
+        html += "</form>";
 
         $("#photo-icons").html(html);  
         $("#photo-form").show();
