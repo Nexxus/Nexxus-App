@@ -238,8 +238,9 @@ class FinalizeView
             }
             html += "</tr></table>"; 
         }
-            html += ""
-                  + "<a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm("+ orderId +", false)'>Verstuur</a>";
+
+        html += ""
+              + "<a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm("+ orderId +", false)'>Verstuur</a>";
 
         $("#photo-icons").html(html);  
         $("#photo-form").show();
@@ -255,9 +256,11 @@ class FinalizeView
     
         if (allowed_types.indexOf(imgtype) >= 0) 
         {
-          $("#file-input-img-" + id).attr("src", "include/img/checkmark.png");
-        } else {
-          $("#file-input-img-" + id).attr("src", "include/img/crossmark.png");
+            $("#file-input-img-" + id).attr("src", "include/img/checkmark.png");
+        } 
+        else 
+        {
+             $("#file-input-img-" + id).attr("src", "include/img/crossmark.png");
         }
     }
 
