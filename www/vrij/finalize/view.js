@@ -42,7 +42,6 @@ class FinalizeView
         }
         // delivery location
         html += ""
-//           + "                   <hr><label> Heeft u de producten afgeleverd op de afgesproken locatie? </label> "
              + "                    <div class='ui-center'>"
              + "                        <a onclick='c.closePopup()' id='btn-submit' class='ui-btn ui-options ui-red'>Annuleer <img src='include/css/images/icons-png/delete-white.png'></a>"
              + "                        <a onclick='c.renderPhotoForm("+id+")' id='btn-submit' class='ui-btn ui-options ui-green'>Bevestig <img src='include/css/images/icons-png/check-white.png'></a>"
@@ -184,13 +183,14 @@ class FinalizeView
             $("#current-index").html(current + 1);
             $("#current-label").html(tasks[current]['supplier']['street']);
         }
-        else {
-            console.log(tasks);
-            console.log(current);
+        else 
+        {
             $("#previous-index").html(current);
             $("#previous-label").html(tasks[current-1]['supplier']['street']);
+
             $("#current-index").html(current + 1);
             $("#current-label").html("Einde rit");
+
             $("#next-index").html("");
             $("#next-label").html("");
         }
@@ -202,8 +202,6 @@ class FinalizeView
         $("#quantity-form").hide();
 
         var html = "";
-
-        console.log(products);
 
         for(var i=0; i < products.length; i++)
         {
@@ -218,11 +216,11 @@ class FinalizeView
                 var imageOption = "" 
                     + "<td>"
                         + "<div class='image-upload'>"
-                            + "<label for='file-input-" + i +  j + "'>"
+                            + "<label for='file-input-" + products[i]['id'] + "'>"
                                 + "<h4>Foto #" + (j + 1) + "</h4>"
-                                + "<img id='file-input-img-" +  i  +  j + "' src='include/img/plus.png' class='ui-plus' max-width='40%' />"
+                                + "<img id='file-input-img-" + products[i]['id'] + "' src='include/img/plus.png' class='ui-plus' max-width='40%' />"
                             + "</label>"
-                            + "<input style='display:none' id='file-input-" +  i  +  j + "' class='photo-input' type='file' onChange='c.v.changePhotoIconToSolved(" +  i  +  j + ")' />"
+                            + "<input style='display:none' id='file-input-" +  products[i]['id'] + "' class='photo-input' type='file' onChange='c.v.changePhotoIconToSolved(" +  products[i]['id'] + ")' />"
                         + "</div>" 
                     + "</td>";
 
@@ -247,19 +245,19 @@ class FinalizeView
         $("#photo-form").show();
     }
   
-    changePhotoIconToSolved(i) 
+    changePhotoIconToSolved(id) 
     {
         // check if file is an image
         var allowed_types = ["image/jpg", "image/jpeg", "image/png", "image/bmp"];
     
-        var img = $("#file-input-" + i).prop("files");
+        var img = $("#file-input-" + id).prop("files");
         var imgtype = img[0]["type"];
     
         if (allowed_types.indexOf(imgtype) >= 0) 
         {
-          $("#file-input-img-" + i).attr("src", "include/img/checkmark.png");
+          $("#file-input-img-" + id).attr("src", "include/img/checkmark.png");
         } else {
-          $("#file-input-img-" + i).attr("src", "include/img/crossmark.png");
+          $("#file-input-img-" + id).attr("src", "include/img/crossmark.png");
         }
     }
 

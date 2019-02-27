@@ -70,7 +70,7 @@ class FinalizeModel
             url:
                 this.url +
                 "/purchaseorderstatus?bearer=" +
-                this.token
+                this.token,
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
