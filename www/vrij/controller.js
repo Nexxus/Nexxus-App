@@ -30,7 +30,6 @@ class VrijController
 
     loadList()
     {
-        console.log("Loading list..");
         this.renderTaskList()
     }
 
@@ -111,8 +110,6 @@ class VrijController
 
     dropdownToggle(div)
     {
-        console.log("Slide toggled: " + div);
-
         if(this.listCollapse[div]) 
         {
             this.listCollapse[div] = false;
