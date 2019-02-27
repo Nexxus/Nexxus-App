@@ -54,6 +54,42 @@ class FinalizeModel
         });
     }
 
+    /**
+     * Send image to API and bind it to an attribute
+     */
+    postImageToApi(id, blob)
+    {
+        var form = new FormData();
+        form.append("productId" , id);
+        form.append("attributeId", "4");
+        form.append("attachment", blob);
+
+        $.ajax({
+            async: true,
+            model: this,
+            url:
+                this.url +
+                "/purchaseorderstatus?bearer=" +
+                this.token
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            processData: false,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            data: form,
+            success: function(data) 
+            {
+
+            },
+            error: function(xhr) {
+
+            }
+        });
+
+    }
+
     setOrderProductQuantity(order, productId, quantity)
     {
         var orderId = order['id'];
