@@ -33,6 +33,8 @@ class LoginModel
                 window.location.reload();
             },
             error: function() {
+                console.log("User failed");
+                console.log(this.url);
 
             }
         });
@@ -47,7 +49,7 @@ class LoginModel
             console.log("Saved URL found!");
             console.log(localStorage.getItem("domain"));
 
-            url = localStorage.getItem("nexxus.domain");
+            url = localStorage.getItem("domain");
         }
         else 
         {

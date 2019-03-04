@@ -7,6 +7,6 @@ class SetupModel
 
     saveDomainLocal(url)
     {
-        localStorage.setItem("domain", url);
+        localStorage.setItem("domain", url + "/api");
     }
 }

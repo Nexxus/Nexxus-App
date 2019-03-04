@@ -69,6 +69,13 @@ class LoginController
         this.m.logoutUser();
     }
 
+    clearDomainUrl()
+    {
+        localStorage.removeItem("domain");
+
+        window.open('setup.html', '_self');
+    }
+
 }
 
 
