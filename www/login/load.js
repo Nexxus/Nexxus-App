@@ -2,6 +2,8 @@ userconfig = new UserConfig();
 
 c = new LoginController(this);
 
+c.checkForDomain();
+
 if(c.checkForToken()) 
 {
     window.open(c.m.getEnvironment(), '_self');

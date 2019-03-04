@@ -1,4 +1,4 @@
-class LoginView 
+class SetupView 
 {
     constructor() 
     {

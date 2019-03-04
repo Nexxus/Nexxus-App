@@ -1,9 +1,9 @@
-class LoginController
+class SetupController
 {
     constructor() 
     {
-        this.m = new LoginModel(this);
-        this.v = new LoginView();
+        this.m = new SetupModel(this);
+        this.v = new SetupView();
     }
 
     // redirects if token was not found

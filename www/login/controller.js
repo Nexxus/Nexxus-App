@@ -8,7 +8,10 @@ class LoginController
 
     checkForDomain()
     {
-
+        if(this.m.url == 0)
+        {
+            this.redirectToSetup();
+        }
     }
 
     // redirects if token was not found
@@ -30,6 +33,11 @@ class LoginController
     redirectToLogin()
     {
         window.open('login.html', '_self');
+    }
+
+    redirectToSetup()
+    {
+        window.open('setup.html', '_self');
     }
 
     renderLoginForm()
