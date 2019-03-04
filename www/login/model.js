@@ -51,6 +51,7 @@ class LoginModel
         else 
         {
             console.log("No URL found.");
+            // redirect to setup.html
         }
 
         return url;

@@ -6,57 +6,65 @@ class SetupController
         this.v = new SetupView();
     }
 
-    // redirects if token was not found
-    checkForToken()
-    {
-        var token = this.m.getLoginToken();
-
-        if(token)
-        {
-            console.log("Token set!");
-            return true
-        }
-        else {
-            console.log("Token not set!");
-            return false
-        }
-    }
-
     redirectToLogin()
     {
         window.open('login.html', '_self');
     }
 
-    renderLoginForm()
+    renderDomainForm()
     {
-        this.v.showLoginForm("#body");
+        this.v.showDomainForm("#body");
     }
 
-    getCredentials()
+    getDomain()
     {
         var form = {};
 
-        form.user = $("#username").val(); 
-        form.pass = $("#password").val(); 
+        form.domain = $("#domain").val(); 
 
         return form;
     }
 
-    handleLogin()
+    /**
+     * Checks a domain and calls back with a valid or invalid response.
+     */
+    checkDomain(url)
     {
-        if(typeof this.getCredentials() !== 'undefined') {
-            var form = this.getCredentials();
+        var url = this.getDomain();
+
+        $.ajax({
+            type: 'HEAD',
+            c: this,
+            url: url,
+            success: function(){
+                console.log("ajax call successful");
+                c.storeDomain(true, true);
+            },
+            error: function() {
+                console.log("ajax call failed");
+                c.storeDomain(true, false);
+            }
+        });
+    }
+
+    storeDomain(callback, valid)
+    {
+        if(!callback)
+        {
+            this.url = this.getDomain();
+            console.log("got domain!");
         }
-
-        this.m.storeLoginToken(form.user, form.pass);
+        else // url checked 
+        {
+            if(valid)
+            {
+                this.m.saveDomainLocal(url);
+                console.log("Saved domain locally!");
+            }
+            else 
+            {
+                console.log("URL isn't valid!");
+            }
+        }
     }
-
-    handleLogout()
-    {
-        this.m.logoutUser();
-    }
-
 }
-
-
-

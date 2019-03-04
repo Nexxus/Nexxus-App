@@ -5,7 +5,7 @@ class SetupView
 
     }
 
-    showLoginForm(div)
+    showDomainForm(div)
     {
         var content = "";
         content += "<div id='page1' data-role='page' data-theme='a'>"
@@ -15,15 +15,12 @@ class SetupView
               
   
                 + "<div data-role='content' data-theme='a' class='ui-content ui-body-a' role='main'>"
-                    + "<h2>Welcome to Nexxus</h2>"
-                    + "<form id='loginform' name='loginform'>"
-                    + "<label for='username'>Username</label>"
-                        + "<div class='form-group ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>"       
-                            + "<input type='text' id='username' class='form-control' placeholder='Username'>"
-                        + "</div>"
-                         + "<label for='password'>Password</label>"
-                        + "<div class='form-group ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>"
-                            + "<input type='password' id='password' name='password' class='form-control' placeholder='********'>"
+                    + "<h2>Invullen Bedrijfsdomein</h2>"
+                    + "<h4>Hiervan ontvangt u uw gegevens en opdrachten.</h4>"
+                    + "<form id='domainform' name='domainform'>"
+                    + "<label for='domain'>Domein</label>"
+                        + "<div class='form-group ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>" 
+                            + "<input type='text' id='domain' class='form-control' placeholder='https://'>"
                         + "</div>"
                         + "<div class='form-group'>"
                             + "<button type='submit' id='btn-submit' class='ui-btn-login ui-btn'>Login</button>"
