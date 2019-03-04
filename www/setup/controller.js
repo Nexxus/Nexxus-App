@@ -6,11 +6,6 @@ class LoginController
         this.v = new LoginView();
     }
 
-    checkForDomain()
-    {
-
-    }
-
     // redirects if token was not found
     checkForToken()
     {
@@ -19,11 +14,11 @@ class LoginController
         if(token)
         {
             console.log("Token set!");
-            return true;
+            return true
         }
         else {
             console.log("Token not set!");
-            return false;
+            return false
         }
     }
 

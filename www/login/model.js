@@ -2,7 +2,7 @@ class LoginModel
 {
     constructor(controller) 
     {
-        this.url = "http://copiatek.com/application/api";
+        this.url = this.getUserDomain();
         this.login = "/login_check";
 
         this.env = "vrij.html";
@@ -36,6 +36,23 @@ class LoginModel
 
             }
         });
+    }
+
+    getUserDomain()
+    {
+        var url = 0;
+        if(typeof localStorage.getItem("nexxus.domain") != undefined)
+        {
+            console.log("Saved URL found!");
+
+            url = localStorage.getItem("nexxus.domain");
+        }
+        else 
+        {
+            console.log("No URL found.");
+        }
+
+        return url;
     }
 
     getLoginToken()
