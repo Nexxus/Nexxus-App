@@ -6,6 +6,14 @@ class SetupController
         this.v = new SetupView();
     }
 
+    checkForStoredUrl()
+    {
+        if(this.getDomain() != undefined)
+        {
+            this.redirectToLogin();
+        }
+    }
+
     redirectToLogin()
     {
         window.open('login.html', '_self');
@@ -30,7 +38,11 @@ class SetupController
         this.url = this.getDomain();
 
         this.m.saveDomainLocal(this.url.domain);
-
-        console.log(localStorage.getItem("domain"));
+        this.redirectToLogin();
+    }
+    
+    redirectToLogin()
+    {
+        window.open('login.html', '_self');
     }
 }

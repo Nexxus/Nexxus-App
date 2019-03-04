@@ -41,17 +41,17 @@ class LoginModel
     getUserDomain()
     {
         var url = 0;
-        if(localStorage.getItem("nexxus.domain") != null)
+
+        if(localStorage.getItem("domain") != null)
         {
             console.log("Saved URL found!");
-            console.log(localStorage.getItem("nexxus.domain"));
+            console.log(localStorage.getItem("domain"));
 
             url = localStorage.getItem("nexxus.domain");
         }
         else 
         {
             console.log("No URL found.");
-            // redirect to setup.html
         }
 
         return url;
