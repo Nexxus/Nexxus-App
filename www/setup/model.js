@@ -5,10 +5,8 @@ class SetupModel
         this.c = controller;
     }
 
-    storeDomain(url)
+    saveDomainLocal(url)
     {
         localStorage.setItem("domain", url);
-
-        console.log(localStorage.setItem("domain", url));
     }
 }

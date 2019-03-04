@@ -25,46 +25,12 @@ class SetupController
         return form;
     }
 
-    /**
-     * Checks a domain and calls back with a valid or invalid response.
-     */
-    checkDomain(url)
+    storeDomain()
     {
-        var url = this.getDomain();
+        this.url = this.getDomain();
 
-        $.ajax({
-            type: 'HEAD',
-            c: this,
-            url: url,
-            success: function(){
-                console.log("ajax call successful");
-                c.storeDomain(true, true);
-            },
-            error: function() {
-                console.log("ajax call failed");
-                c.storeDomain(true, false);
-            }
-        });
-    }
+        this.m.saveDomainLocal(this.url.domain);
 
-    storeDomain(callback, valid)
-    {
-        if(!callback)
-        {
-            this.url = this.getDomain();
-            console.log("got domain!");
-        }
-        else // url checked 
-        {
-            if(valid)
-            {
-                this.m.saveDomainLocal(url);
-                console.log("Saved domain locally!");
-            }
-            else 
-            {
-                console.log("URL isn't valid!");
-            }
-        }
+        console.log(localStorage.getItem("domain"));
     }
 }
