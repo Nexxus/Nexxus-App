@@ -2,7 +2,7 @@ class LoginModel
 {
     constructor(controller) 
     {
-        this.url = "http://copiatek.com/application/api";
+        this.url = this.getUserDomain();
         this.login = "/login_check";
 
         this.env = "vrij.html";
@@ -33,9 +33,30 @@ class LoginModel
                 window.location.reload();
             },
             error: function() {
+                console.log("User failed");
+                console.log(this.url);
 
             }
         });
+    }
+
+    getUserDomain()
+    {
+        var url = 0;
+
+        if(localStorage.getItem("domain") != null)
+        {
+            console.log("Saved URL found!");
+            console.log(localStorage.getItem("domain"));
+
+            url = localStorage.getItem("domain");
+        }
+        else 
+        {
+            console.log("No URL found.");
+        }
+
+        return url;
     }
 
     getLoginToken()

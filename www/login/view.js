@@ -29,6 +29,10 @@ class LoginView
                             + "<button type='submit' id='btn-submit' class='ui-btn-login ui-btn'>Login</button>"
                         + "</div>"
                     + "</form>"
+                    + "<hr>"
+                    + "<div class='form-group'>"
+                        + "<button onClick='c.clearDomainUrl()' id='btn-clear-url' class='ui-btn ui-btn-login ui-red'>Wis<br>Domein</button>"
+                    + "</div>"
                 + "</div>"
             +"</div>";
 

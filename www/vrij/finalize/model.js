@@ -42,6 +42,12 @@ class FinalizeModel
             processData: false,
             contentType: false,
             mimeType: "multipart/form-data",
+            statusCode: {
+                401: function (response) { // token expired
+                    this.model.c.loginc.handleLogout();
+                    this.model.c.loginc.redirectToLogin();
+                }
+            },
             success: function(data) 
             {
                 console.log(this.id);

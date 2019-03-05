@@ -6,6 +6,14 @@ class LoginController
         this.v = new LoginView();
     }
 
+    checkForDomain()
+    {
+        if(this.m.url == 0)
+        {
+            this.redirectToSetup();
+        }
+    }
+
     // redirects if token was not found
     checkForToken()
     {
@@ -14,17 +22,22 @@ class LoginController
         if(token)
         {
             console.log("Token set!");
-            return true
+            return true;
         }
         else {
             console.log("Token not set!");
-            return false
+            return false;
         }
     }
 
     redirectToLogin()
     {
         window.open('login.html', '_self');
+    }
+
+    redirectToSetup()
+    {
+        window.open('setup.html', '_self');
     }
 
     renderLoginForm()
@@ -54,6 +67,13 @@ class LoginController
     handleLogout()
     {
         this.m.logoutUser();
+    }
+
+    clearDomainUrl()
+    {
+        localStorage.removeItem("domain");
+
+        window.open('setup.html', '_self');
     }
 
 }
