@@ -112,16 +112,29 @@ class VrijView
         // unique elements 
         switch(div)
         {
-            case "#tasklist-accepteerde":
-                $(div+"-spec").html("<a id='btn-submit' onClick='c.sendToFinalForm(0)' class='ui-btn-half ui-green ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Start Ophaal</a>");
-                break;
             case "#tasklist-aangeboden":
-                $(div+"-spec").html("<a id='btn-submit' onClick='c.renderAcceptBulkPopup()' class='ui-btn-half ui-blue ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Accepteer Taken</a>");
+                if(row_c==0)
+                {
+                    $(div+"-spec").html("<a id='btn-submit' class='ui-btn-half ui-blue ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Accepteer Taken</a>");
+                }
+                else
+                {
+                    $(div+"-spec").html("<a id='btn-submit' onClick='c.renderAcceptBulkPopup()' class='ui-btn-half ui-blue ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Accepteer Taken</a>");
+                }
                 break;
+            case "#tasklist-accepteerde":
 
+                if(row_c==0)
+                {
+                    $(div+"-spec").html("<a id='btn-submit' class='ui-btn-half ui-green ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Start Ophaal</a>");
+                }
+                else
+                {
+                    $(div+"-spec").html("<a id='btn-submit' onClick='c.sendToFinalForm(0)' class='ui-btn-half ui-green ui-link ui-btn ui-shadow ui-corner-all' data-role='button' role='button'>Start Ophaal</a>");
+                }
+                break;
             default:
         }
-
 
     }
 
