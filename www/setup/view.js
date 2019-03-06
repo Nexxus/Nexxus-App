@@ -20,7 +20,7 @@ class SetupView
                     + "<form id='domainform' name='domainform'>"
                     + "<label for='domain'>Domein</label>"
                         + "<div class='form-group ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'>" 
-                            + "<input type='text' id='domain' class='form-control' placeholder='https://'>"
+                            + "<input type='text' id='domain' class='form-control' value='https://' placeholder='https://'>"
                         + "</div>"
                         + "<div class='form-group'>"
                             + "<button type='submit' id='btn-submit' class='ui-btn-login ui-btn'>Login</button>"
