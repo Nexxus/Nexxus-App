@@ -32,8 +32,9 @@ class LoginModel
                 sessionStorage.setItem("token", result.token);
                 window.location.reload();
             },
-            error: function() {
-                console.log("User failed");
+            error: function(xhr, error_text, statusText) {
+                alert('Error #' + xhr.status + ': Controleer uw domein, naam en wachtwoord.');
+                console.log(xhr);
                 console.log(this.url);
 
             }

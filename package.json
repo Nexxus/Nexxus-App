@@ -1,8 +1,8 @@
 {
-  "name": "com.copiatek.nexxusapp",
+  "name": "com.copiatek.nexxus",
   "displayName": ".",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "A mobile extension for the Nexxus website.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "bootstrap": "^4.1.3",
-    "cordova-android": "^7.1.1",
+    "cordova-android": "^7.1.4",
     "cordova-plugin-whitelist": "^1.3.3",
     "jquery": "^3.3.1",
     "mysql": "^2.16.0",
