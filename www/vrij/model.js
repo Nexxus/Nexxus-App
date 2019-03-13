@@ -5,8 +5,8 @@ class VrijModel
         this.url        = userConfig.api;
         this.token      = sessionStorage.getItem("token");
 
-        this.offeredId  = userConfig.offeredId; 
-        this.acceptedId = userConfig.acceptedId;
+        this.o        = userConfig.offeredId; 
+        this.a        = userConfig.acceptedId;
 
         this.c          = controller;
         this.loginc     = loginc;
@@ -16,12 +16,12 @@ class VrijModel
     {
         if(!callback)
         {
-            this.requestTasklist(2)
+            this.requestTasklist(this.o)
             //console.log("Request made..");
         }
         else if (callback && step==1)
         {
-            this.requestTasklist(300);
+            this.requestTasklist(this.a);
             //console.log("Offered callback success");
         }
         else if (callback && step==2)
@@ -59,15 +59,16 @@ class VrijModel
                 if(data==undefined) data = 0;
 
                 switch(status) {
-                    case 2:   // offered
+                    case this.model.o: // offered
                         this.model.c.offeredTasks = JSON.parse(data);
                         this.model.loadTasks(true, 1);
                         break;
-                    case 300: // accepted
+                    case this.model.a: // accepted
                         this.model.c.acceptedTasks = JSON.parse(data);
                         this.model.loadTasks(true, 2);
                         break;
                     default:
+                        console.log(status);
                         return false;
                 }
             },
@@ -137,7 +138,7 @@ class VrijModel
             "model": this,
             "url": this.url + "/purchaseorderstatus?bearer=" +this.token
                     + "&purchaseOrderId=" + id 
-                    + "&statusId=300",
+                    + "&statusId=" + this.a,
             "method": "PUT",
             "headers": {},
             "processData": false,

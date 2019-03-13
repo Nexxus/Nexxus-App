@@ -190,26 +190,8 @@ class VrijView
                 +"</table> "
         +"</div>";
 
-        // customize buttons
-        var choice = "";
-        choice += "<br><div class='ui-center'>";
-        if(task['status']['id']==2) 
-        {
-            choice += "<a onClick='c.renderRefuse()' href='#reden' data-rel='popup' data-transition='pop' data-position-to='window' id='btn-submit' class='ui-btn ui-options ui-red'>Weigeren  <img src='include/css/images/icons-png/delete-white.png'></a>"
-            choice += "<a onClick='c.postAcceptedTask(" + task['id'] + ", false)' id='btn-submit' class='ui-btn ui-options ui-green'>Accepteren <img src='include/css/images/icons-png/check-white.png'></a>";
-        } else
-        if(task['status']['id']==300) 
-        {
-            choice += "<a onClick='c.renderRefuse()' href='#reden' data-rel='popup' data-transition='pop' data-position-to='window' id='btn-submit' class='ui-btn ui-options ui-red'>Weigeren  <img src='include/css/images/icons-png/delete-white.png'></a>"
-            choice += "<a onClick='c.sendToFinalForm(" + task['id'] + ")' id='btn-submit' class='ui-btn ui-options ui-green'>Afronden <img src='include/css/images/icons-png/check-white.png'></a>";
-
-        }
-        choice += "</div>";
-
         $(".visibility").remove();
         $("#content").after(html);
-        //$("#content").animate({height:'22vh'});
-        $("#info").after(choice);
         this.switch = true;
     }
 
