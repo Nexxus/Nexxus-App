@@ -5,6 +5,9 @@ class VrijModel
         this.url        = userConfig.api;
         this.token      = sessionStorage.getItem("token");
 
+        this.offeredId  = userConfig.offeredId; 
+        this.acceptedId = userConfig.acceptedId;
+
         this.c          = controller;
         this.loginc     = loginc;
     }
