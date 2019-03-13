@@ -106,42 +106,42 @@ class FinalizeModel
         if(quantity != this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'])
         {
             this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
-            this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productIndex, quantity);
+            this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productId, quantity);
         }
     }
 
     /**
      * Calls AJAX to adjust product quantities in Nexxus 
-     *
-     * API call which hasn't been made yet, gets called before the photoform rendering
-     * (https://github.com/Nexxus/NSK/issues/196)
      */ 
     setOrderProductQuantityApi(id, pid, quantity)
     {
+        var form = new FormData();
+        form.append("purchaseOrderId", id);
+        form.append("productId", pid);
+        form.append("quantity", quantity);
+
         $.ajax({
             async: true,
             crossDomain: true,
             model: this,
-            id: id,
-            pid: pid,
-            quantity: quantity,
             url:
                 this.url +
                 "/purchaseorderquantity"
-                + "?bearer=" + this.token
-                + "&purchaseOrderId=" + id 
-                + "&productId=" + pid
-                + "&quantity=" + quantity,
+                + "?bearer=" + this.token,
             method: "PUT",
-            headers: {},
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
             processData: false,
             contentType: false,
             mimeType: "multipart/form-data",
-            success: function(data) 
+            data: form,
+            success: function(data, textStatus, xhr) 
             {
-                console.log("[setQuantityApi] Order #" + this.id 
-                    + ", product #" + this.pid 
-                    + "set to quantity (" + quantity + ").");
+                console.log("[setQuantityApi] API request Success");
+                console.log(data);
+                console.log(textStatus);
+                console.log(xhr);
 
             },
             error: function(xhr) {
