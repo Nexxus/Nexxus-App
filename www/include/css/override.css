@@ -42,10 +42,6 @@
 .ui-title {
   text-align: center;
 }
-.ui-header .ui-title,
-.ui-footer .ui-title {
-  padding: 1vw;
-}
 .ui-checkbox input,
 .ui-radio input {
   left: 0.646em;
