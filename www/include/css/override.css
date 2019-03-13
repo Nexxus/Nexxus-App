@@ -37,12 +37,10 @@
   padding: 0;
   background-color: #006e2e;
   height: 50px;
+  width: 100%;
 }
 .ui-title {
-  margin-bottom: 0%;
-  margin-top: 0;
-  margin-left: 38% !important;
-  width: 20vw;
+  text-align: center;
 }
 .ui-header .ui-title,
 .ui-footer .ui-title {
