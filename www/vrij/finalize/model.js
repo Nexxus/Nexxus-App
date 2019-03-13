@@ -98,6 +98,7 @@ class FinalizeModel
 
     setOrderProductQuantity(order, productId, quantity)
     {
+        
         var orderId = order['id'];
         var orderIndex = this.getIndexById(orderId);
         var productIndex = this.getPindexFromOrderById(orderId, productId);
@@ -117,16 +118,20 @@ class FinalizeModel
      */ 
     setOrderProductQuantityApi(id, pid, quantity)
     {
-        /*
         $.ajax({
             async: true,
             crossDomain: true,
             model: this,
             id: id,
+            pid: pid,
+            quantity: quantity,
             url:
                 this.url +
-                "/purchaseorderstatus?bearer=" +
-                this.token,
+                "/purchaseorderquantity"
+                + "?bearer=" + this.token
+                + "&purchaseOrderId=" + id 
+                + "&productId=" + pid
+                + "&quantity=" + quantity,
             method: "PUT",
             headers: {},
             processData: false,
@@ -134,13 +139,18 @@ class FinalizeModel
             mimeType: "multipart/form-data",
             success: function(data) 
             {
+                console.log("[setQuantityApi] Order #" + this.id 
+                    + ", product #" + this.pid 
+                    + "set to quantity (" + quantity + ").");
 
             },
             error: function(xhr) {
+                console.log("[setQuantityApi] API request failed");
+                console.log(xhr);
+                console.log(this.url);
 
             }
         });
-        */
     }
 
     /**
