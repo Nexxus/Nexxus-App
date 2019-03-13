@@ -49,9 +49,18 @@ class FinalizeView
              + "                 </div>";
 
         // photo form
+        /*
         html += "               <div id='photo-form' class='ui-content ui-body-a' data-role='content' data-theme='a' role='main' style='display: block;'>"
                 +"                  <h3> Foto's </h3>"
                 + "                 <label>Klik op de vakjes om foto's te maken van de producten.</label>"
+                + "                 <table>"
+                + "                     <div id='photo-icons' class='ui-center'></div>"
+                + "                 </table>"
+                + "                  </div>";
+        */
+        html += "               <div id='photo-form' class='ui-content ui-body-a' data-role='content' data-theme='a' role='main' style='display: block;'>"
+                +"                  <h3> Bevestig </h3>"
+                + "                 <label>Klik hier om het de huidige taak af te ronden.</label>"
                 + "                 <table>"
                 + "                     <div id='photo-icons' class='ui-center'></div>"
                 + "                 </table>"
@@ -203,6 +212,8 @@ class FinalizeView
 
         var html = "<form id='photoform'>";
 
+        // Currently disabled, photos don't get pushed to the API yet
+        /*
         for(var i=0; i < products.length; i++)
         {
             var quantity = products[i]['quantity'];
@@ -240,6 +251,7 @@ class FinalizeView
             }
             html += "</tr></table>"; 
         }
+        */
 
         html += ""
               + "<a id='btn-submit' class='ui-btn ui-options ui-green' role='button' name='submit' onClick='c.submitForm("+ orderId +", false)'>Verstuur</a>";
