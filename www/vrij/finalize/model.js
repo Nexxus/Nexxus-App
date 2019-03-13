@@ -98,16 +98,15 @@ class FinalizeModel
 
     setOrderProductQuantity(order, productId, quantity)
     {
+        console.log(this.acceptedTasks);
         
         var orderId = order['id'];
         var orderIndex = this.getIndexById(orderId);
         var productIndex = this.getPindexFromOrderById(orderId, productId);
+        var pid = this.acceptedTasks[orderIndex]['product_relations'][productIndex]['product']['id'];
 
-        if(quantity != this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'])
-        {
-            this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
-            this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productId, quantity);
-        }
+        this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
+        this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productId, quantity);
     }
 
     /**
@@ -119,6 +118,8 @@ class FinalizeModel
         form.append("purchaseOrderId", id);
         form.append("productId", pid);
         form.append("quantity", quantity);
+
+        console.log(pid);
 
         $.ajax({
             async: true,
@@ -139,9 +140,6 @@ class FinalizeModel
             success: function(data, textStatus, xhr) 
             {
                 console.log("[setQuantityApi] API request Success");
-                console.log(data);
-                console.log(textStatus);
-                console.log(xhr);
 
             },
             error: function(xhr) {
