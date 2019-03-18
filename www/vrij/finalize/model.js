@@ -52,6 +52,7 @@ class FinalizeModel
             {
                 console.log(this.id);
                 console.log("Order #"+this.id+" successfully submit!");
+                console.log(this.model.acceptedTasks);
                 this.model.c.submitForm(this.id, true);
             },
             error: function(xhr) {
