@@ -176,7 +176,7 @@ class VrijView
                             +"<td id='datum'><b class='ui-table-cell-label' > Uiterste Datum: </b></td><td class='ui-width'>" + this.parseTSDate(task.order_date) + "</td>"
                         +"</tr>"
                         + "<tr>" 
-                            + "<td id='wat'><b class='ui-table-cell-label' > Hoeveelheid: </b> </td><td class='ui-width'>"+ totalproducts + "</td>"
+                            + "<td id='wat'><b class='ui-table-cell-label' > Hoeveel: </b> </td><td class='ui-width'>"+ totalproducts + "</td>"
                         +"</tr>"
                             +"<tr><td id='tijd'><b class='ui-table-cell-label'  > Tijd: </b></td><td class='ui-width'>"+ this.parseTSTime(task.order_date) +"</td>"
                         +"</tr>"
