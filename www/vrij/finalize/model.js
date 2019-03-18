@@ -52,6 +52,7 @@ class FinalizeModel
             {
                 console.log(this.id);
                 console.log("Order #"+this.id+" successfully submit!");
+                console.log(this.model.acceptedTasks);
                 this.model.c.submitForm(this.id, true);
             },
             error: function(xhr) {
@@ -98,49 +99,57 @@ class FinalizeModel
 
     setOrderProductQuantity(order, productId, quantity)
     {
+        console.log(this.acceptedTasks);
+        
         var orderId = order['id'];
         var orderIndex = this.getIndexById(orderId);
         var productIndex = this.getPindexFromOrderById(orderId, productId);
+        var pid = this.acceptedTasks[orderIndex]['product_relations'][productIndex]['product']['id'];
 
-        if(quantity != this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'])
-        {
-            this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
-            this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productIndex, quantity);
-        }
+        this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
+        this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productId, quantity);
     }
 
     /**
      * Calls AJAX to adjust product quantities in Nexxus 
-     *
-     * API call which hasn't been made yet, gets called before the photoform rendering
-     * (https://github.com/Nexxus/NSK/issues/196)
      */ 
     setOrderProductQuantityApi(id, pid, quantity)
     {
-        /*
+        var form = new FormData();
+        form.append("purchaseOrderId", id);
+        form.append("productId", pid);
+        form.append("quantity", quantity);
+
+        console.log(pid);
+
         $.ajax({
             async: true,
             crossDomain: true,
             model: this,
-            id: id,
             url:
                 this.url +
-                "/purchaseorderstatus?bearer=" +
-                this.token,
+                "/purchaseorderquantity"
+                + "?bearer=" + this.token,
             method: "PUT",
-            headers: {},
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
             processData: false,
             contentType: false,
             mimeType: "multipart/form-data",
-            success: function(data) 
+            data: form,
+            success: function(data, textStatus, xhr) 
             {
+                console.log("[setQuantityApi] API request Success");
 
             },
             error: function(xhr) {
+                console.log("[setQuantityApi] API request failed");
+                console.log(xhr);
+                console.log(this.url);
 
             }
         });
-        */
     }
 
     /**

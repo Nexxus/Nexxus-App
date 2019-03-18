@@ -28,6 +28,7 @@ class VrijView
                + "<div id='"+div_id+"-title'><h3 style='margin:0;margin-left:2vw; margin-top:1vh;'>" + title + "</h3></div>";
 
         html  += "<div id='"+div_id+"-spec'></div>";
+
         /* table */
         html += "<div data-role='content' data-theme='a'>"
               + "<table id='table-"+div_id+"' data-role='table' data-mode='reflow' class='ui-responsive ui-table ui-table-reflow'>"
@@ -50,7 +51,7 @@ class VrijView
         /* table rows */
         if(Array.isArray(tasks) && tasks.length > 0)
         {
-            html += "<tr style='background-color:#ddd'><td class='pooltitle' onClick=\"c.dropdownToggle('"+div+"')\" id='"+div_id+"-dropdown'></td></tr>";
+            html += "<tr style='background-color:#ddd'><td class='pooltitle' onClick=\"c.dropdownToggle('"+div+"')\" id='"+div_id+"-dropdown' colspan='4'></td></tr>";
             html += "<tbody id='"+div_id+"-rows' style='display: none;'>";
 
             for(var i=0; i < tasks.length; i++) 
@@ -159,9 +160,9 @@ class VrijView
             totalproducts += relations[pr]['quantity'];
         }
 
-        html += "<div class='ui-popup-screen ui-overlay-inherit in' id='infop'></div> "
-        + "<div class='ui-popup-container pop in ui-popup-active' id='info-popup' style='top: 171px; left: 29px'>"
-                  + "<div class='ui-popup ui-body-inherit ui-overlay-shadow ui-corner-all' data-role='popup' id='infop' data-dismissible='false' style=''>"
+        html += "<div class='ui-popup-screen ui-overlay-inherit in' id='infop'></div>"
+            + "<div class='ui-popup-container pop in ui-popup-active' data-position='fixed' id='info-popup' style='position:fixed; top: 20%; left: 10%'>"
+                  + "<div class='ui-popup ui-body-inherit ui-overlay-shadow ui-corner-all' data-role='popup' id='infop' >"
                   + "<a onclick='c.closeInfoPopup()' style='position:relative; float: right;margin:0'  data-role='button'  class='ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right ui-red' ></a>"
                   + "<h3 style='margin:0;margin-left:2vw; margin-top:1vh;'>Info</h3>"
                   + " <table id='info' data-role='table' class='ui-responsive table-stroke ui-table ui-table-reflow'>"
@@ -176,7 +177,7 @@ class VrijView
                             +"<td id='datum'><b class='ui-table-cell-label' > Uiterste Datum: </b></td><td class='ui-width'>" + this.parseTSDate(task.order_date) + "</td>"
                         +"</tr>"
                         + "<tr>" 
-                            + "<td id='wat'><b class='ui-table-cell-label' > Hoeveelheid: </b> </td><td class='ui-width'>"+ totalproducts + "</td>"
+                            + "<td id='wat'><b class='ui-table-cell-label' > Hoeveel: </b> </td><td class='ui-width'>"+ totalproducts + "</td>"
                         +"</tr>"
                             +"<tr><td id='tijd'><b class='ui-table-cell-label'  > Tijd: </b></td><td class='ui-width'>"+ this.parseTSTime(task.order_date) +"</td>"
                         +"</tr>"
