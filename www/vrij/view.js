@@ -28,6 +28,7 @@ class VrijView
                + "<div id='"+div_id+"-title'><h3 style='margin:0;margin-left:2vw; margin-top:1vh;'>" + title + "</h3></div>";
 
         html  += "<div id='"+div_id+"-spec'></div>";
+
         /* table */
         html += "<div data-role='content' data-theme='a'>"
               + "<table id='table-"+div_id+"' data-role='table' data-mode='reflow' class='ui-responsive ui-table ui-table-reflow'>"
@@ -50,7 +51,7 @@ class VrijView
         /* table rows */
         if(Array.isArray(tasks) && tasks.length > 0)
         {
-            html += "<tr style='background-color:#ddd'><td class='pooltitle' onClick=\"c.dropdownToggle('"+div+"')\" id='"+div_id+"-dropdown'></td></tr>";
+            html += "<tr style='background-color:#ddd'><td class='pooltitle' onClick=\"c.dropdownToggle('"+div+"')\" id='"+div_id+"-dropdown' colspan='4'></td></tr>";
             html += "<tbody id='"+div_id+"-rows' style='display: none;'>";
 
             for(var i=0; i < tasks.length; i++) 
