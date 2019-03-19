@@ -50,7 +50,6 @@ class VrijModel
             "data":{"status":status},
             "statusCode": {
                 401: function (response) { // token expired
-                    alert("Session has expired.");
                     this.model.loginc.handleLogout();
                     this.model.loginc.redirectToLogin();
                 }

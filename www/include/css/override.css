@@ -231,3 +231,9 @@ div.ui-controlgroup-label {
 .ui-body-a{
   border-width: 0;
 }
+
+.ui-logout-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
