@@ -9,6 +9,7 @@ class VrijView
     {
         $(div).html("<div data-role='header' data-position='fixed' role='banner' class='ui-header ui-bar-inherit ui-header-fixed slidedown'>"
               + "<h1 class='ui-title' role='heading' aria-level='1'>Nexxus</h1>"
+              + "<div class='ui-logout-button'><img onClick='loginc.handleLogout()' src='include/img/icons/logout-white.png' width='24px'></div>"
               + "</div>"
         );
     }
@@ -30,7 +31,7 @@ class VrijView
         html  += "<div id='"+div_id+"-spec'></div>";
 
         /* table */
-        html += "<div data-role='content' data-theme='a'>"
+        html += "<div class='ui-tasklist' data-role='content' data-theme='a'>"
               + "<table id='table-"+div_id+"' data-role='table' data-mode='reflow' class='ui-responsive ui-table ui-table-reflow'>"
               + "<tbody id='title'>";
 
@@ -52,7 +53,7 @@ class VrijView
         if(Array.isArray(tasks) && tasks.length > 0)
         {
             html += "<tr style='background-color:#ddd'><td class='pooltitle' onClick=\"c.dropdownToggle('"+div+"')\" id='"+div_id+"-dropdown' colspan='4'></td></tr>";
-            html += "<tbody id='"+div_id+"-rows' style='display: none;'>";
+            html += "<tbody id='"+div_id+"-rows' class='tasklist-content' style='display: none;'>";
 
             for(var i=0; i < tasks.length; i++) 
             {

@@ -39,7 +39,7 @@ class VrijController
     renderTaskList()
     {
         this.v.showHeader("#header");
-        this.v.showFooter("#footer");
+        //this.v.showFooter("#footer");
 
         $("#content").html("");
         $("#content").append("<div id='tasklist-accepteerde'>");
