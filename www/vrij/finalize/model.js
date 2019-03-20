@@ -99,8 +99,6 @@ class FinalizeModel
 
     setOrderProductQuantity(order, productId, quantity)
     {
-        console.log(this.acceptedTasks);
-        
         var orderId = order['id'];
         var orderIndex = this.getIndexById(orderId);
         var productIndex = this.getPindexFromOrderById(orderId, productId);
@@ -115,12 +113,11 @@ class FinalizeModel
      */ 
     setOrderProductQuantityApi(id, pid, quantity)
     {
-        var form = new FormData();
-
         $.ajax({
             async: true,
             crossDomain: true,
             model: this,
+            order: [id, pid, quantity],
             url:
                 this.url +
                 "/purchaseorderquantity"
@@ -141,7 +138,7 @@ class FinalizeModel
             },
             success: function(data, textStatus, xhr) 
             {
-                console.log("Status #" + xhr.status +": " + xhr.statusText);
+                console.log("Order #" + id + " Product #" + pid + " Status #" + xhr.status +": " + xhr.statusText);
 
             },
             error: function(xhr) {
