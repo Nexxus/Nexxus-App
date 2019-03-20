@@ -129,15 +129,15 @@ class FinalizeModel
             url:
                 this.url +
                 "/purchaseorderquantity"
-                + "?bearer=" + this.token,
+                + "?bearer=" + this.token
+                + "&purchaseOrderId=" + id
+                + "&productId=" + pid 
+                + "&quantity=" + quantity,
             method: "PUT",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
+            headers: {},
             processData: false,
             contentType: false,
             mimeType: "multipart/form-data",
-            data: form,
             success: function(data, textStatus, xhr) 
             {
                 console.log("Status #" + xhr.status +": " + xhr.statusText);
