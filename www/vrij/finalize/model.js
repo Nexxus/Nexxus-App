@@ -99,15 +99,13 @@ class FinalizeModel
 
     setOrderProductQuantity(order, productId, quantity)
     {
-        console.log(this.acceptedTasks);
-        
         var orderId = order['id'];
         var orderIndex = this.getIndexById(orderId);
         var productIndex = this.getPindexFromOrderById(orderId, productId);
         var pid = this.acceptedTasks[orderIndex]['product_relations'][productIndex]['product']['id'];
 
         this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
-        this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productId, quantity);
+        this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], pid, quantity);
     }
 
     /**
@@ -115,39 +113,36 @@ class FinalizeModel
      */ 
     setOrderProductQuantityApi(id, pid, quantity)
     {
-        var form = new FormData();
-        form.append("purchaseOrderId", id);
-        form.append("productId", pid);
-        form.append("quantity", quantity);
-
-        console.log(pid);
-
         $.ajax({
             async: true,
             crossDomain: true,
             model: this,
+            order: [id, pid, quantity],
             url:
                 this.url +
                 "/purchaseorderquantity"
-                + "?bearer=" + this.token,
+                + "?bearer=" + this.token
+                + "&purchaseOrderId=" + id
+                + "&productId=" + pid 
+                + "&quantity=" + quantity,
             method: "PUT",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
+            headers: {},
             processData: false,
             contentType: false,
             mimeType: "multipart/form-data",
-            data: form,
+            statusCode: {
+                401: function (response) { // token expired
+                    this.model.c.loginc.handleLogout();
+                    this.model.c.loginc.redirectToLogin();
+                }
+            },
             success: function(data, textStatus, xhr) 
             {
-                console.log("[setQuantityApi] API request Success");
+                console.log("Order #" + id + " Product #" + pid + " Status #" + xhr.status +": " + xhr.statusText);
 
             },
             error: function(xhr) {
                 console.log("[setQuantityApi] API request failed");
-                console.log(xhr);
-                console.log(this.url);
-
             }
         });
     }
