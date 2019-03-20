@@ -13,4 +13,4 @@ c.renderTaskList();
 
 // refresh the lists every 3 seconds
 c.reloadTasklist(false);
-//window.setInterval(function () { c.reloadTasklist(false); }, 3000)
+window.setInterval(function () { c.reloadTasklist(false); }, 3000)

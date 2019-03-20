@@ -140,7 +140,7 @@ class FinalizeModel
             data: form,
             success: function(data, textStatus, xhr) 
             {
-                console.log("[setQuantityApi] API request Success");
+                console.log("Status #" + xhr.status +": " + xhr.statusText);
 
             },
             error: function(xhr) {
