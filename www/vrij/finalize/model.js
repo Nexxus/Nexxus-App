@@ -107,7 +107,7 @@ class FinalizeModel
         var pid = this.acceptedTasks[orderIndex]['product_relations'][productIndex]['product']['id'];
 
         this.acceptedTasks[orderIndex]['product_relations'][productIndex]['quantity'] = quantity;
-        this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], productId, quantity);
+        this.setOrderProductQuantityApi(this.acceptedTasks[orderIndex]['id'], pid, quantity);
     }
 
     /**
@@ -116,11 +116,6 @@ class FinalizeModel
     setOrderProductQuantityApi(id, pid, quantity)
     {
         var form = new FormData();
-        form.append("purchaseOrderId", id);
-        form.append("productId", pid);
-        form.append("quantity", quantity);
-
-        console.log(pid);
 
         $.ajax({
             async: true,
@@ -138,6 +133,12 @@ class FinalizeModel
             processData: false,
             contentType: false,
             mimeType: "multipart/form-data",
+            statusCode: {
+                401: function (response) { // token expired
+                    this.model.c.loginc.handleLogout();
+                    this.model.c.loginc.redirectToLogin();
+                }
+            },
             success: function(data, textStatus, xhr) 
             {
                 console.log("Status #" + xhr.status +": " + xhr.statusText);
@@ -145,9 +146,6 @@ class FinalizeModel
             },
             error: function(xhr) {
                 console.log("[setQuantityApi] API request failed");
-                console.log(xhr);
-                console.log(this.url);
-
             }
         });
     }
